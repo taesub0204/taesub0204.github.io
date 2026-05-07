@@ -4,14 +4,18 @@
 entries:
   - title: info
     entries:
-     - title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
-     - title: github repo
-       url: https://github.com/riggraz/no-style-please
-     - title: "used by <a href='https://riggraz.dev'>riggraz.dev</a> and <a href='https://github.com/riggraz/no-style-please/network/dependents'>many others</a>"
+     - title: Learning log(배움의 기록)
+     - title: Korea Polytechnics Semiconductor Convergence Campus
+       url: https://www.kopo.ac.kr/semi/index.do
+     # title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
+     - title: github repo(학습자료 및 실습내용)
+       url: https://github.com/taesub0204/python
+     #  url: https://github.com/riggraz/no-style-please
+     #- title: "used by <a href='https://riggraz.dev'>riggraz.dev</a> and <a href='https://github.com/riggraz/no-style-please/network/dependents'>many others</a>"
 
   - title: all posts
     post_list:
-      limit: 3
+      limit: 1
       show_more: true
       show_more_text: See archive...
       show_more_url: archive.html

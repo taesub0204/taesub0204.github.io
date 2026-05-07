@@ -2,3 +2,101 @@
 ---
 
 @import "no-style-please";
+
+
+/* 1. 본문 박스 기본 스타일 */
+.w {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+  /* 커서 설정을 아래에서 제어합니다 */
+}
+
+/* 1. 본문 영역(.w) 화살표 커서 - 36px로 적당히 조절 */
+.w {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M4.5 1.9L20.2 12.3L12.7 13.7L16.8 21.6L14.2 22.8L10.1 14.9L4.5 18.2V1.9Z" fill="black" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>') 6 2, auto;
+}
+
+/* 2. 링크(a)나 버튼 위 손가락 - 오해 없는 깔끔한 디자인 */
+.w a:hover, .w button:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M10 3V12M10 12L7 10L5 13L11 21H18V13L15 11V5C15 3.89543 14.1046 3 13 3C11.8954 3 11 3.89543 11 5V11" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"/></svg>') 12 2, pointer;
+}
+
+/* 2. 배너 스위치 스타일 (.w와 동일한 보더 스타일 적용) */
+.banner-switch {
+  /* .w의 스타일을 그대로 가져옴 */
+  background: var(--box-bg);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  border: 2px solid var(--border-color); /* .w와 동일한 보더 */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  
+  /* 커서 설정 */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M10 3V12M10 12L7 10L5 13L11 21H18V13L15 11V5C15 3.89543 14.1046 3 13 3C11.8954 3 11 3.89543 11 5V11" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"/></svg>') 12 2, pointer;
+}
+
+/* 배너 호버 시 살짝 들리는 효과 (기존 .w:hover 느낌 유지) */
+.banner-switch:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px var(--shadow);
+  color: var(--text-color) !important;
+}
+
+/* 3. 배너 내부 정보 스타일 */
+.banner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.status-tag {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  background: var(--border-color); /* 다크모드 시 형광색 */
+  color: var(--box-bg);
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.banner-main-text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* 4. 시각적 스위치 모양 (Indicator) */
+.visual-indicator {
+  width: 44px;
+  height: 22px;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.indicator-circle {
+  width: 14px;
+  height: 14px;
+  background: var(--border-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 다크모드 시 원 이동 */
+body[a="dark"] .indicator-circle {
+  transform: translateX(22px);
+}

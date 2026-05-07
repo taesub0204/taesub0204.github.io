@@ -3,6 +3,18 @@
   {%- include head.html -%}
   <body a="{{ site.theme_config.appearance | default: "auto" }}">
     <main class="page-content" aria-label="Content">
+      <div class="banner-switch" onclick="toggleTheme()">
+    <div class="banner-content">
+      <div class="banner-info">
+        <span class="status-tag">MODE</span>
+        <p class="banner-main-text">Click here to toggle Dark/Light mode</p>
+      </div>
+      <div class="visual-indicator">
+        <div class="indicator-circle"></div>
+      </div>
+    </div>
+  </div>
+
       <div class="w">
         {{ content }}
       </div>
@@ -17,5 +29,18 @@
         <script type="text/javascript" src="{{ site.baseurl }}/assets/js/{{ js_file }}.js"></script>
       {% endfor %}
     {% endif %}
+    <script>
+  function toggleTheme() {
+    const body = document.body;
+    const current = body.getAttribute('a') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    body.setAttribute('a', next);
+    localStorage.setItem('theme', next);
+  }
+
+  // 초기 테마 설정
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.body.setAttribute('a', savedTheme);
+</script>
   </body>
 </html>
