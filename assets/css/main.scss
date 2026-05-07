@@ -1,8 +1,7 @@
+---
+---
 
----
----
-/* main.scss - 블로그 전체 스타일 */
-// @import "no-style-please";
+// @import "no-style-please";  
 // @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
 
@@ -18,7 +17,7 @@
 
 /* 1. 본문 영역(.w) 화살표 커서 - 36px로 적당히 조절 */
 .w {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M4.5 1.9L20.2 12.3L12.7 13.7L16.8 21.6L14.2 22.8L10.1 14.9L4.5 18.2V1.9Z" fill="black" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>') 6 2, auto;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M4.5 1.9L20.2 12.3L12.7 13.7L16.8 21.6L14.2 22.8L10.1 14.9L4.5 18.2V1.9Z" fill="black" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>') 6 2, auto !important;
 }
 
 /* 2. 링크(a)나 버튼 위 손가락 - 오해 없는 깔끔한 디자인 */
