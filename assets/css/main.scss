@@ -2,6 +2,7 @@
 ---
 
 @import "no-style-please";
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
 
 /* 1. 본문 박스 기본 스타일 */
@@ -100,3 +101,70 @@
 body[a="dark"] .indicator-circle {
   transform: translateX(22px);
 }
+
+
+// -----------------------------------------
+/* 1. 모든 링크에 대해 클릭 시 빨간색으로 변하는 현상 방지 */
+/* 1. 기본 링크 스타일 (세련된 파란색) */
+.w a, .entry-link {
+  color: #0066cc; /* 표준 파란색보다 살짝 차분한 파란색 */
+  text-decoration: underline; /* 링크임을 알리는 밑줄 */
+  transition: color 0.2s ease;
+}
+
+/* 2. 다크모드일 때 링크 색상 (배경에 잘 보이도록 조금 더 밝은 하늘색) */
+body[a="dark"] .w a, 
+body[a="dark"] .entry-link {
+  color: #58a6ff; 
+}
+
+/* 3. ★ 핵심: 누를 때 빨간색 방지 ★ */
+/* 누르고 있는 순간(active)에도 파란색을 그대로 유지하게 합니다. */
+.w a:active, 
+.entry-link:active {
+  color: #0066cc !important; 
+}
+
+body[a="dark"] .w a:active,
+body[a="dark"] .entry-link:active {
+  color: #58a6ff !important;
+}
+
+/* 4. 방문한 링크(visited) 색상도 빨강/보라 대신 파란색 유지 */
+.w a:visited, 
+.entry-link:visited {
+  color: #0066cc;
+}
+
+body[a="dark"] .w a:visited,
+body[a="dark"] .entry-link:visited {
+  color: #58a6ff;
+}
+
+/* 5. 호버했을 때 (마우스 올리면 밑줄 진하게 등) */
+.w a:hover, 
+.entry-link:hover {
+  color: #004499; /* 호버 시 약간 더 진한 파란색 */
+  text-decoration: underline;
+}
+
+// ----------------------------------------- 폰트
+body {
+  font-family: var(--font-main);
+  line-height: 1.6; /* 줄 간격을 살짝 넓히면 훨씬 보기 편해요 */
+  letter-spacing: -0.02em; /* 자간을 살짝 조여서 세련되게 만듭니다 */
+  /* ... 기존 설정들 ... */
+}
+
+
+// ----------------------------------------- 여백
+
+
+/* 1. 리스트 전체 뭉치의 위아래 간격 축소 */
+.w ul {
+
+  padding: 0 !important;
+  margin: 1rem 0 !important; /* 기존의 절반 수준으로 줄임 */
+  margin-left: 2.7rem !important;
+}
+
