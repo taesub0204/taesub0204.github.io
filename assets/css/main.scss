@@ -2,16 +2,16 @@
 ---
 
 // @import "no-style-please";  
-// @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+//@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
 
 /* 1. 본문 박스 기본 스타일 */
 .w {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease;
+  background: white !important;
+  padding: 2rem !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+  transition: background-color 0.3s ease !important;
   /* 커서 설정을 아래에서 제어합니다 */
 }
 
@@ -22,23 +22,23 @@
 
 /* 2. 링크(a)나 버튼 위 손가락 - 오해 없는 깔끔한 디자인 */
 .w a:hover, .w button:hover {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M10 3V12M10 12L7 10L5 13L11 21H18V13L15 11V5C15 3.89543 14.1046 3 13 3C11.8954 3 11 3.89543 11 5V11" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"/></svg>') 12 2, pointer;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M10 3V12M10 12L7 10L5 13L11 21H18V13L15 11V5C15 3.89543 14.1046 3 13 3C11.8954 3 11 3.89543 11 5V11" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"/></svg>') 12 2, pointer !important;
 }
 
 /* 2. 배너 스위치 스타일 (.w와 동일한 보더 스타일 적용) */
 .banner-switch {
   /* .w의 스타일을 그대로 가져옴 */
-  background: var(--box-bg);
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  border: 2px solid var(--border-color); /* .w와 동일한 보더 */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: var(--box-bg) !important;
+  padding: 1.5rem 2rem !important;
+  border-radius: 12px !important;
+  border: 2px solid var(--border-color) !important; /* .w와 동일한 보더 */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
   
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 1.5rem !important;
+  transition: all 0.3s ease !important;
   
   /* 커서 설정 */
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M10 3V12M10 12L7 10L5 13L11 21H18V13L15 11V5C15 3.89543 14.1046 3 13 3C11.8954 3 11 3.89543 11 5V11" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"/></svg>') 12 2, pointer;
@@ -46,60 +46,60 @@
 
 /* 배너 호버 시 살짝 들리는 효과 (기존 .w:hover 느낌 유지) */
 .banner-switch:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px var(--shadow);
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 12px var(--shadow) !important;
   color: var(--text-color) !important;
 }
 
 /* 3. 배너 내부 정보 스타일 */
 .banner-info {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
 }
 
 .status-tag {
-  align-self: flex-start;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  background: var(--border-color); /* 다크모드 시 형광색 */
-  color: var(--box-bg);
-  border-radius: 4px;
+  align-self: flex-start !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  padding: 2px 8px !important;
+  background: var(--border-color) !important; /* 다크모드 시 형광색 */
+  color: var(--box-bg) !important;
+  border-radius: 4px !important;
   text-transform: uppercase;
 }
 
 .banner-main-text {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-color);
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-color) !important;
 }
 
 /* 4. 시각적 스위치 모양 (Indicator) */
 .visual-indicator {
-  width: 44px;
-  height: 22px;
-  border: 2px solid var(--border-color);
-  border-radius: 20px;
-  position: relative;
-  transition: all 0.3s ease;
+  width: 44px !important;
+  height: 22px !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 20px !important;
+  position: relative !important;
+  transition: all 0.3s ease !important;
 }
 
 .indicator-circle {
-  width: 14px;
-  height: 14px;
-  background: var(--border-color);
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
+  width: 14px !important;
+  height: 14px !important;
+  background: var(--border-color) !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  top: 2px !important;
+  left: 2px !important;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* 다크모드 시 원 이동 */
 body[a="dark"] .indicator-circle {
-  transform: translateX(22px);
+  transform: translateX(22px) !important;
 }
 
 
@@ -107,15 +107,15 @@ body[a="dark"] .indicator-circle {
 /* 1. 모든 링크에 대해 클릭 시 빨간색으로 변하는 현상 방지 */
 /* 1. 기본 링크 스타일 (세련된 파란색) */
 .w a, .entry-link {
-  color: #0066cc; /* 표준 파란색보다 살짝 차분한 파란색 */
-  text-decoration: underline; /* 링크임을 알리는 밑줄 */
-  transition: color 0.2s ease;
+  color: #0066cc !important; /* 표준 파란색보다 살짝 차분한 파란색 */
+  text-decoration: underline !important; /* 링크임을 알리는 밑줄 */
+  transition: color 0.2s ease !important;
 }
 
 /* 2. 다크모드일 때 링크 색상 (배경에 잘 보이도록 조금 더 밝은 하늘색) */
 body[a="dark"] .w a, 
 body[a="dark"] .entry-link {
-  color: #58a6ff; 
+  color: #58a6ff !important; 
 }
 
 /* 3. ★ 핵심: 누를 때 빨간색 방지 ★ */
@@ -138,22 +138,22 @@ body[a="dark"] .entry-link:active {
 
 body[a="dark"] .w a:visited,
 body[a="dark"] .entry-link:visited {
-  color: #58a6ff;
+  color: #58a6ff !important;
 }
 
 /* 5. 호버했을 때 (마우스 올리면 밑줄 진하게 등) */
 .w a:hover, 
 .entry-link:hover {
-  color: #004499; /* 호버 시 약간 더 진한 파란색 */
+  color: #004499 !important; /* 호버 시 약간 더 진한 파란색 */
   text-decoration: underline;
 }
 
 
 /* ----------------------------------------- 폰트 */
 body {
-  font-family: var(--font-main);
-  line-height: 1.6; /* 줄 간격을 살짝 넓히면 훨씬 보기 편해요 */
-  letter-spacing: -0.02em; /* 자간을 살짝 조여서 세련되게 만듭니다 */
+  font-family: var(--font-main) !important;
+  line-height: 1.6 !important; /* 줄 간격을 살짝 넓히면 훨씬 보기 편해요 */
+  letter-spacing: -0.02em !important; /* 자간을 살짝 조여서 세련되게 만듭니다 */
   /* ... 기존 설정들 ... */
 }
 
