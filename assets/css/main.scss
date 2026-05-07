@@ -1,7 +1,7 @@
 ---
 ---
-
-@import "no-style-please";
+/* main.scss - 블로그 전체 스타일 */
+@import "no-style-please";  
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
 
@@ -103,7 +103,7 @@ body[a="dark"] .indicator-circle {
 }
 
 
-// -----------------------------------------
+/* ----------------------------------------- */
 /* 1. 모든 링크에 대해 클릭 시 빨간색으로 변하는 현상 방지 */
 /* 1. 기본 링크 스타일 (세련된 파란색) */
 .w a, .entry-link {
@@ -148,7 +148,8 @@ body[a="dark"] .entry-link:visited {
   text-decoration: underline;
 }
 
-// ----------------------------------------- 폰트
+
+/* ----------------------------------------- 폰트 */
 body {
   font-family: var(--font-main);
   line-height: 1.6; /* 줄 간격을 살짝 넓히면 훨씬 보기 편해요 */
@@ -157,7 +158,7 @@ body {
 }
 
 
-// ----------------------------------------- 여백
+/* ----------------------------------------- 여백 */
 
 
 /* 1. 리스트 전체 뭉치의 위아래 간격 축소 */
