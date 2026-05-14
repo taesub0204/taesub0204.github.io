@@ -18,21 +18,21 @@
   --link-color: #005cc5;
   --link-hover: #004499;
   
-  --code-bg: #f6f8fa;
-  --code-text: #d16969; /* VS Code 붉은색 문자열 색상 */
-  --code-block-bg: #ffffff;
+  --code-bg: #f0f0f0;
+  --code-text: #0000ff; /* 파란색 (Jupyter style) */
+  --code-block-bg: #f4f4f4; /* 쥬피터 노트북 배경색 */
   --code-block-text: #24292e;
 
-  /* VS Code Syntax Highlighting (Light) */
-  --syn-comment: #008000;
-  --syn-keyword: #0000ff;
-  --syn-string: #a31515;
-  --syn-number: #098658;
-  --syn-function: #795e26;
-  --syn-variable: #001080;
-  --syn-operator: #000000;
-  --syn-control: #af00db;
-  --syn-heading: #005cc5;
+  /* Colab / Jupyter Syntax Highlighting (Light) */
+  --syn-comment: #008080; /* 주석: 청록색(Teal) */
+  --syn-keyword: #0000ff; /* 키워드: 파란색 */
+  --syn-string: #a31515; /* 문자열: 붉은색 */
+  --syn-number: #008000; /* 숫자: 밝은 초록색 */
+  --syn-function: #0000ff; /* 함수(print 등): 파란색 */
+  --syn-variable: #24292e; /* 변수: 기본 검정/진회색 */
+  --syn-operator: #aa22ff; /* 연산자: 보라색 느낌 */
+  --syn-control: #0000ff; /* 제어문: 파란색 */
+  --syn-heading: #222222; /* 제목: 묵직한 검정/진회색 */
   --syn-bold: #000000;
   
   /* 폰트: 깔끔한 UI 폰트와 개발자용 코드 폰트 분리 */
@@ -283,3 +283,49 @@ hr {
 .highlight .o, .highlight .ow, .highlight .p, .highlight .pi { color: var(--syn-operator) !important; }
 .highlight .cf { color: var(--syn-control) !important; font-weight: bold !important; }
 .highlight .err { color: #f44747 !important; background-color: transparent !important; }
+
+/* ========================================= */
+/* 6. 뒤로 가기 버튼 (Simplism Back Button) */
+/* ========================================= */
+.back-link-wrapper {
+  margin-bottom: 2rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.back-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 20px !important; /* 모바일 터치 영역 확보 */
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-color) !important;
+  background: var(--bg) !important; /* 배경색에 맞춰 은은하게 */
+  border: 1px solid var(--border-color) !important;
+  border-radius: 50px !important; /* 둥글고 심플한 알약 모양 */
+  text-decoration: none !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 8px var(--shadow) !important;
+}
+
+/* 호버/액티브 시 약간 떠오르는 효과 */
+.back-button:hover, .back-button:active {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px var(--shadow) !important;
+  border-color: var(--link-color) !important;
+  color: var(--link-hover) !important;
+  text-decoration: none !important; /* 밑줄 방지 */
+}
+
+/* 화살표 아이콘 */
+.back-button svg {
+  width: 20px !important;
+  height: 20px !important;
+  transition: transform 0.2s ease !important;
+}
+
+/* 호버 시 화살표가 살짝 왼쪽으로 이동 */
+.back-button:hover svg {
+  transform: translateX(-4px) !important;
+}
