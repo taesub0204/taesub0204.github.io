@@ -22,6 +22,18 @@
   --code-text: #d16969; /* VS Code 붉은색 문자열 색상 */
   --code-block-bg: #ffffff;
   --code-block-text: #24292e;
+
+  /* VS Code Syntax Highlighting (Light) */
+  --syn-comment: #008000;
+  --syn-keyword: #0000ff;
+  --syn-string: #a31515;
+  --syn-number: #098658;
+  --syn-function: #795e26;
+  --syn-variable: #001080;
+  --syn-operator: #000000;
+  --syn-control: #af00db;
+  --syn-heading: #005cc5;
+  --syn-bold: #000000;
   
   /* 폰트: 깔끔한 UI 폰트와 개발자용 코드 폰트 분리 */
   --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -46,6 +58,18 @@ body[a="dark"] {
   --code-text: #ce9178;
   --code-block-bg: #1e1e1e;
   --code-block-text: #d4d4d4;
+
+  /* VS Code Syntax Highlighting (Dark) */
+  --syn-comment: #6a9955;
+  --syn-keyword: #569cd6;
+  --syn-string: #ce9178;
+  --syn-number: #b5cea8;
+  --syn-function: #dcdcaa;
+  --syn-variable: #9cdcfe;
+  --syn-operator: #d4d4d4;
+  --syn-control: #c586c0;
+  --syn-heading: #569cd6; /* Blue for markdown headings */
+  --syn-bold: #ffffff;
 }
 
 /* ========================================= */
@@ -216,3 +240,46 @@ hr {
   border-color: var(--border-color) !important;
   opacity: 0.5;
 }
+
+/* ========================================= */
+/* 5. VS Code Markdown & Syntax Highlighting */
+/* ========================================= */
+
+/* Markdown 본문 요소 (제목, 인용구, 강조 등) */
+.w h1, .w h2, .w h3, .w h4, .w h5, .w h6 {
+  color: var(--syn-heading) !important;
+  font-weight: 600 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 0.5em !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding-bottom: 0.3em !important;
+}
+
+.w h1 { font-size: 2em !important; border-bottom: 2px solid var(--border-color) !important; }
+.w h2 { font-size: 1.5em !important; }
+.w h3, .w h4, .w h5, .w h6 { border-bottom: none !important; }
+
+.w blockquote {
+  margin: 1.5em 0 !important;
+  padding: 0.5em 1em !important;
+  color: var(--syn-comment) !important;
+  border-left: 4px solid var(--border-color) !important;
+  background: rgba(128, 128, 128, 0.05) !important;
+  font-style: italic !important;
+}
+
+.w strong, .w b {
+  font-weight: 700 !important;
+  color: var(--syn-bold) !important;
+}
+
+/* 코드 블록 (Rouge) 구문 강조 (Syntax Highlighting) */
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp, .highlight .cs { color: var(--syn-comment) !important; font-style: italic !important; }
+.highlight .k, .highlight .kd, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kv { color: var(--syn-keyword) !important; font-weight: bold !important; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .sb, .highlight .sc { color: var(--syn-string) !important; }
+.highlight .m, .highlight .mi, .highlight .mf, .highlight .mo, .highlight .mh, .highlight .il { color: var(--syn-number) !important; }
+.highlight .nf, .highlight .nc, .highlight .nn { color: var(--syn-function) !important; font-weight: 500 !important; }
+.highlight .n, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .na, .highlight .nx { color: var(--syn-variable) !important; }
+.highlight .o, .highlight .ow, .highlight .p, .highlight .pi { color: var(--syn-operator) !important; }
+.highlight .cf { color: var(--syn-control) !important; font-weight: bold !important; }
+.highlight .err { color: #f44747 !important; background-color: transparent !important; }
