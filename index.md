@@ -1,10 +1,9 @@
 ---
 layout: page
-title: Welcome
+title: Home
 ---
 
-# Welcome to My Portfolio
+# **TeSter Cho**
 
-안녕하세요! 이곳은 저의 성장 기록과 프로젝트를 공유하는 공간입니다.
 
-좌측 메뉴를 통해 저의 **프로젝트(Project)**, **배움의 기록(Learning Log)**, 그리고 **활동 이력(History)**을 확인하실 수 있습니다.
+> "반도체 장비 안정성 및 예지보전 엔지니어 SW 검증 경력의 꼼꼼함으로 장비의 예외 오작동을 예방하고, 수집된 데이터를 활용하여 현장의 이상 징후를 감지하고 장비 운영을 최적화합니다."

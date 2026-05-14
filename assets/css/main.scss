@@ -118,19 +118,18 @@ div.highlighter-rouge code, pre {
 /* 1. 본문 박스 기본 스타일 */
 /* ========================================= */
 .w {
-  background: var(--box-bg) !important;
+  background: transparent !important; /* 배경은 부모인 page-content에서 처리 */
   color: var(--text-color) !important;
-  padding: 2.5rem !important;
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color) !important;
-  box-shadow: 0 8px 24px var(--shadow) !important;
+  padding: 3rem !important; /* 읽기 편하게 내부 여백만 유지 */
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
   transition: all 0.3s ease !important;
   
-  /* 하단 여백 및 가로폭 안정화 */
-  max-width: 1200px !important; 
-  width: 95% !important; 
-  margin: 2rem auto !important;
-  margin-bottom: 4rem !important; /* 하단 여백 확보 */
+  /* 전역 여백 제거 및 화면 밀착 */
+  max-width: none !important; 
+  width: 100% !important; 
+  margin: 0 !important;
 }
 
 /* 화살표 커서 - 36px */
@@ -149,18 +148,20 @@ div.highlighter-rouge code, pre {
 .banner-switch {
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
-  padding: 0.4rem 0.8rem !important;
-  border-radius: 6px !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 8px !important;
   border: 1px solid var(--border-color) !important;
   box-shadow: 0 4px 6px var(--shadow) !important;
   
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  gap: 1.2rem !important; /* 글자와 스위치 사이의 간격을 벌림 */
-  margin-top: 4rem !important;
-  margin-left: -1rem !important;
-  width: fit-content !important;
+  gap: 1rem !important;
+  margin-top: 1.5rem !important; /* 간격 살짝 조정 */
+  margin-left: 0 !important;
+  width: 100% !important;
+  min-height: 56px !important; /* 높이를 명확하게 고정 */
+  box-sizing: border-box !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
 }
@@ -278,29 +279,26 @@ hr {
 
 /* Markdown 본문 요소 (제목, 인용구, 강조 등) */
 .w h1, .w h2, .w h3, .w h4, .w h5, .w h6 {
-  color: var(--syn-heading) !important;
-  font-weight: 600 !important;
-  margin-top: 1.5em !important;
-  margin-bottom: 0.5em !important;
+  color: var(--text-color) !important; /* 색상 통일 */
+  font-weight: 700 !important;
+  margin-top: 1.8em !important;
+  margin-bottom: 0.6em !important;
   border-bottom: none !important;
-  background-image: linear-gradient(to right, var(--border-color) 0%, transparent 100%) !important;
-  background-position: bottom left !important;
-  background-size: 100% 1px !important; /* 더 얇은 선 */
-  background-repeat: no-repeat !important;
-  padding-bottom: 0.3em !important;
+  background-image: none !important; /* 하단 구분선 제거 */
+  padding-bottom: 0 !important;
 }
 
-.w h1 { font-size: 2em !important; border-bottom: 2px solid var(--border-color) !important; }
-.w h2 { font-size: 1.5em !important; }
-.w h3, .w h4, .w h5, .w h6 { border-bottom: none !important; }
+.w h1 { font-size: 2.2em !important; }
+.w h2 { font-size: 1.8em !important; }
+.w h3 { font-size: 1.4em !important; }
 
 .w blockquote {
-  margin: 1.5em 0 !important;
-  padding: 0.5em 1em !important;
-  color: var(--syn-comment) !important;
-  border-left: 4px solid var(--border-color) !important;
-  background: rgba(128, 128, 128, 0.05) !important;
-  font-style: italic !important;
+  margin: 2em 0 !important;
+  padding: 1em 1.5rem !important;
+  color: var(--text-color) !important; /* 색상 통일 */
+  border-left: 3px solid var(--border-color) !important;
+  background: rgba(var(--text-color), 0.03) !important;
+  font-style: normal !important; /* 기울임 해제 */
 }
 
 .w strong, .w b {
@@ -369,35 +367,35 @@ hr {
 /* 7. 전체 타이포그래피 (황금비율 조화 1:1.618) */
 /* ========================================= */
 
-/* 메인 타이틀 (Learning Log) */
-.home-header {
-  text-align: center !important; /* 가운데 정렬 */
-  margin-bottom: 3rem !important;
+/* 페이지 메인 헤더 (타이틀 + 서브타이틀 + 그라데이션 선) */
+.page-header {
+  text-align: center !important;
+  margin-bottom: 4rem !important;
 }
 
-.home-header .main-title {
-  font-size: 2.8rem !important; /* 타이틀다운 압도적 크기 (bold 강조) */
-  font-weight: 900 !important; /* 가장 두꺼운 굵기 */
+.page-header .main-title {
+  font-size: 2.8rem !important;
+  font-weight: 900 !important;
   color: var(--text-color) !important;
   margin-bottom: 0.5rem !important;
   letter-spacing: -0.03em !important;
   border-bottom: none !important;
-  /* 가운데 정렬에 맞게 양쪽으로 연해지는 그라데이션 선 적용 */
+  /* 가운데 정렬 그라데이션 선 */
   background-image: linear-gradient(to right, transparent 0%, var(--border-color) 50%, transparent 100%) !important;
   background-position: bottom center !important;
   background-size: 80% 1px !important;
   background-repeat: no-repeat !important;
-  padding-bottom: 1rem !important;
+  padding-bottom: 1.2rem !important;
 }
 
-.home-header .sub-title {
+.page-header .sub-title {
   display: block !important;
-  font-size: 0.95rem !important; /* 기존보다 훨씬 작고 세련되게 축소 */
+  font-size: 0.95rem !important;
   font-weight: 400 !important;
   color: var(--text-color) !important;
-  opacity: 0.5 !important; /* 촌스러운 원색 대신 기본 텍스트의 고급스러운 반투명 회색 적용 */
-  letter-spacing: 0.05em !important; /* 작은 글씨일수록 자간을 넓히면 훨씬 모던해보입니다 */
-  margin-top: 0.6rem !important;
+  opacity: 0.5 !important;
+  letter-spacing: 0.05em !important;
+  margin-top: 0.8rem !important;
 }
 
 header p {
@@ -477,7 +475,7 @@ header p {
   min-height: 100vh !important;
   width: 100% !important;
   max-width: none !important;
-  background-color: var(--bg) !important;
+  background-color: var(--box-bg) !important; /* 본문 배경과 일치시켜 빈틈 방지 */
   margin: 0 !important;
 }
 
@@ -542,12 +540,13 @@ header p {
   flex: 1 !important;
   margin-left: 250px !important;
   min-width: 0 !important;
-  width: calc(100% - 250px) !important;
-  background: var(--bg) !important; /* 다시 사이트 배경색으로 복구 */
+  /* width: calc(100% - 250px) 제거 -> flex: 1이 자동으로 채우도록 함 */
+  background: var(--box-bg) !important;
   display: flex !important;
   flex-direction: column !important;
-  padding: 2rem !important; /* 여백 다시 적용 */
-  padding-bottom: 6rem !important; /* 푸터 위 여백 넉넉히 확보 */
+  padding: 0 !important;
+  padding-bottom: 5rem !important;
+  min-height: 100vh !important;
 }
 
 /* 반응형 모바일 (화면 너비가 768px 이하일 때 상단 메뉴로 변환) */
