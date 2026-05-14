@@ -1,7 +1,8 @@
 ---
-layout: post
+    layout: post
+    title: "Learning Log"
+    render_with_liquid: false  # <--- 이 줄을 반드시 추가하세요.
 ---
-
 This post is here to test [$$\jektex$$](https://github.com/yagarea/jektex),
 a lightweight jekyll plugin for LaTeX rendering $$\LaTeX$$.
 
