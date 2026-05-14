@@ -2,7 +2,7 @@
 ---
 
 @import "no-style-please";  
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+@import url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css');
 
 /* ========================================= */
 /* 0. VS Code 2026 테마 변수 (컬러 & 폰트) */
@@ -36,7 +36,7 @@
   --syn-bold: #000000;
   
   /* 폰트: 깔끔한 UI 폰트와 개발자용 코드 폰트 분리 */
-  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-main: 'SUIT', 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-code: 'Cascadia Code', 'Fira Code', 'D2Coding', Consolas, monospace;
 }
 
@@ -184,7 +184,8 @@ div.highlighter-rouge code, pre {
 /* 시각적 스위치 모양 (Indicator) */
 .visual-indicator {
   width: 44px !important;
-  height: 22px !important;
+  height: 24px !important;
+  box-sizing: border-box !important;
   border: 2px solid var(--text-color) !important;
   border-radius: 20px !important;
   position: relative !important;
@@ -198,13 +199,15 @@ div.highlighter-rouge code, pre {
   background: var(--text-color) !important;
   border-radius: 50% !important;
   position: absolute !important;
-  top: 2px !important;
-  left: 2px !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: auto 0 !important;
+  left: 3px !important;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 body[a="dark"] .indicator-circle {
-  transform: translateX(22px) !important;
+  transform: translateX(20px) !important;
 }
 
 /* ========================================= */
@@ -237,8 +240,10 @@ body[a="dark"] .indicator-circle {
 }
 
 hr {
-  border-color: var(--border-color) !important;
-  opacity: 0.5;
+  border: none !important;
+  height: 1px !important;
+  background-image: linear-gradient(to right, var(--border-color) 0%, transparent 100%) !important;
+  opacity: 0.7 !important;
 }
 
 /* ========================================= */
@@ -251,7 +256,11 @@ hr {
   font-weight: 600 !important;
   margin-top: 1.5em !important;
   margin-bottom: 0.5em !important;
-  border-bottom: 1px solid var(--border-color) !important;
+  border-bottom: none !important;
+  background-image: linear-gradient(to right, var(--border-color) 0%, transparent 100%) !important;
+  background-position: bottom left !important;
+  background-size: 100% 1px !important; /* 더 얇은 선 */
+  background-repeat: no-repeat !important;
   padding-bottom: 0.3em !important;
 }
 
@@ -328,4 +337,108 @@ hr {
 /* 호버 시 화살표가 살짝 왼쪽으로 이동 */
 .back-button:hover svg {
   transform: translateX(-4px) !important;
+}
+
+/* ========================================= */
+/* 7. 전체 타이포그래피 (황금비율 조화 1:1.618) */
+/* ========================================= */
+
+/* 메인 타이틀 (Learning Log) */
+.home-header {
+  text-align: center !important; /* 가운데 정렬 */
+  margin-bottom: 3rem !important;
+}
+
+.home-header .main-title {
+  font-size: 2.8rem !important; /* 타이틀다운 압도적 크기 (bold 강조) */
+  font-weight: 900 !important; /* 가장 두꺼운 굵기 */
+  color: var(--text-color) !important;
+  margin-bottom: 0.5rem !important;
+  letter-spacing: -0.03em !important;
+  border-bottom: none !important;
+  /* 가운데 정렬에 맞게 양쪽으로 연해지는 그라데이션 선 적용 */
+  background-image: linear-gradient(to right, transparent 0%, var(--border-color) 50%, transparent 100%) !important;
+  background-position: bottom center !important;
+  background-size: 80% 1px !important;
+  background-repeat: no-repeat !important;
+  padding-bottom: 1rem !important;
+}
+
+.home-header .sub-title {
+  display: block !important;
+  font-size: 0.95rem !important; /* 기존보다 훨씬 작고 세련되게 축소 */
+  font-weight: 400 !important;
+  color: var(--text-color) !important;
+  opacity: 0.5 !important; /* 촌스러운 원색 대신 기본 텍스트의 고급스러운 반투명 회색 적용 */
+  letter-spacing: 0.05em !important; /* 작은 글씨일수록 자간을 넓히면 훨씬 모던해보입니다 */
+  margin-top: 0.6rem !important;
+}
+
+header p {
+  font-size: 1.15rem !important;
+  color: var(--syn-comment) !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* 홈 메뉴 최상위 묶음 */
+.home-menu > ul {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* 1단계 (Depth 1) - info, all posts 등 */
+.home-menu > ul > li {
+  font-size: 1.35rem !important; /* 메인 타이틀과의 밸런스를 위해 약간 축소 */
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
+  list-style-type: none !important;
+  border-bottom: none !important;
+  background-image: linear-gradient(to right, var(--border-color) 0%, transparent 80%) !important; /* 오른쪽으로 갈수록 연해지는 효과 */
+  background-position: bottom left !important;
+  background-size: 100% 1px !important; /* 2px에서 1px로 얇게 변경 */
+  background-repeat: no-repeat !important;
+  padding-bottom: 0.4rem !important;
+  letter-spacing: -0.03em !important;
+}
+
+.home-menu > ul > li:first-child {
+  margin-top: 1rem !important;
+}
+
+.home-menu > ul > li > a {
+  color: var(--text-color) !important;
+  text-decoration: none !important;
+}
+.home-menu > ul > li > a:hover {
+  color: var(--link-color) !important;
+}
+
+/* 2단계 (Depth 2) - Learning log, 파이썬 교육 등 */
+.home-menu > ul > ul {
+  margin-left: 1.2rem !important;
+  margin-top: 1.2rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+.home-menu > ul > ul > li {
+  font-size: 1.15rem !important; /* 본문보다 살짝 커서 가독성 확보 */
+  font-weight: 500 !important;
+  margin-bottom: 0.8rem !important;
+  color: var(--text-color) !important;
+}
+
+/* 3단계 (Depth 3) - subitems, example page 등 */
+.home-menu > ul > ul > ul {
+  margin-top: 0.6rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.home-menu > ul > ul > ul > li {
+  font-size: 1rem !important; /* 기본 본문 사이즈 (1rem) */
+  font-weight: 400 !important;
+  color: var(--text-color) !important;
+  opacity: 0.85 !important; /* 투명도를 살짝 주어 덜 강조되게 처리 */
+  margin-bottom: 0.5rem !important;
 }
