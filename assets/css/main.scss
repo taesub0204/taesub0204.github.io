@@ -82,6 +82,12 @@ html, body {
   line-height: 1.6 !important;
   letter-spacing: -0.02em !important;
   transition: background-color 0.3s ease, color 0.3s ease !important;
+  
+  /* 전역 너비 제한 해제 */
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body[a="dark"] img, body[a="dark"] iframe {
@@ -119,6 +125,12 @@ div.highlighter-rouge code, pre {
   border: 1px solid var(--border-color) !important;
   box-shadow: 0 8px 24px var(--shadow) !important;
   transition: all 0.3s ease !important;
+  
+  /* 하단 여백 및 가로폭 안정화 */
+  max-width: 1200px !important; 
+  width: 95% !important; 
+  margin: 2rem auto !important;
+  margin-bottom: 4rem !important; /* 하단 여백 확보 */
 }
 
 /* 화살표 커서 - 36px */
@@ -137,22 +149,36 @@ div.highlighter-rouge code, pre {
 .banner-switch {
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
-  padding: 1.2rem 1.8rem !important;
-  border-radius: 12px !important;
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 6px !important;
   border: 1px solid var(--border-color) !important;
   box-shadow: 0 4px 6px var(--shadow) !important;
   
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  margin-bottom: 2rem !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  gap: 1.2rem !important; /* 글자와 스위치 사이의 간격을 벌림 */
+  margin-top: 4rem !important;
+  margin-left: -1rem !important;
+  width: fit-content !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
 }
 
 .banner-switch:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 16px var(--shadow) !important;
-  border-color: var(--link-color) !important; /* 호버 시 블루 포인트 */
+  border-color: var(--link-color) !important;
+}
+
+.banner-switch .status-tag {
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  background: var(--text-color) !important;
+  color: var(--box-bg) !important;
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
 }
 
 /* 배너 내부 정보 스타일 */
@@ -442,3 +468,193 @@ header p {
   opacity: 0.85 !important; /* 투명도를 살짝 주어 덜 강조되게 처리 */
   margin-bottom: 0.5rem !important;
 }
+
+/* ========================================= */
+/* 8. 2단 레이아웃 및 사이드바 (Navigation) */
+/* ========================================= */
+.site-wrapper {
+  display: flex !important;
+  min-height: 100vh !important;
+  width: 100% !important;
+  max-width: none !important;
+  background-color: var(--bg) !important;
+  margin: 0 !important;
+}
+
+.sidebar {
+  width: 250px !important;
+  background: var(--box-bg) !important;
+  border-right: 1px solid var(--border-color) !important;
+  padding: 3rem 2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: fixed !important; /* 확실하게 고정 */
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  height: 100vh !important;
+  box-sizing: border-box !important;
+  z-index: 100 !important;
+}
+
+.sidebar-logo a {
+  font-size: 1.8rem !important;
+  font-weight: 900 !important;
+  color: var(--text-color) !important;
+  text-decoration: none !important;
+  letter-spacing: -0.05em !important;
+  display: block !important;
+  margin-bottom: 3rem !important;
+  padding-bottom: 1rem !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.sidebar-nav ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar-nav li {
+  margin-bottom: 1.2rem !important;
+  list-style-type: none !important;
+}
+
+.sidebar-nav a {
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  color: var(--text-color) !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  display: block !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 8px !important;
+  margin-left: -1rem !important; /* 가로 패딩 보정 */
+}
+
+.sidebar-nav a:hover {
+  background-color: var(--text-color) !important;
+  color: var(--box-bg) !important;
+  transform: scale(1.02) !important;
+}
+
+.page-content {
+  flex: 1 !important;
+  margin-left: 250px !important;
+  min-width: 0 !important;
+  width: calc(100% - 250px) !important;
+  background: var(--bg) !important; /* 다시 사이트 배경색으로 복구 */
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 2rem !important; /* 여백 다시 적용 */
+  padding-bottom: 6rem !important; /* 푸터 위 여백 넉넉히 확보 */
+}
+
+/* 반응형 모바일 (화면 너비가 768px 이하일 때 상단 메뉴로 변환) */
+@media (max-width: 768px) {
+  .site-wrapper {
+    flex-direction: column !important;
+  }
+  
+  .sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 1.5rem 1rem !important;
+    align-items: center !important;
+  }
+  
+  .page-content {
+    margin-left: 0 !important;
+  }
+  
+  .sidebar-logo a {
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .sidebar-nav ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+  }
+  
+  .sidebar-nav li {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ========================================= */
+/* 9. 푸터 스타일 (Footer) */
+/* ========================================= */
+.site-footer {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 250px !important;
+  right: 0 !important;
+  background: var(--bg) !important;
+  padding: 0 !important; /* 패딩 제거하여 꽉 채움 */
+  border-top: 1px solid var(--border-color) !important;
+  z-index: 50 !important;
+  height: 35px !important; /* 명확한 높이 설정 */
+  display: flex !important;
+  align-items: center !important;
+}
+
+.site-footer .w {
+  padding: 0 2rem !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  background: transparent !important; /* 배경 투명화 */
+  border-radius: 0 !important; /* 둥근 모서리 제거 */
+  box-shadow: none !important; /* 그림자 제거 */
+  border: none !important; /* 테두리 제거 */
+}
+
+.footer-content {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important; /* 줄바꿈 방지 */
+  gap: 1rem !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important; /* 혹시 모를 둥근 모서리 제거 */
+}
+
+/* 모바일 대응: 푸터 너비 및 위치 조정 */
+@media (max-width: 768px) {
+  .site-footer {
+    left: 0 !important;
+    width: 100% !important;
+  }
+  .footer-content {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+.site-footer p {
+  font-size: 0.7rem !important;
+  font-weight: 400 !important;
+  color: var(--text-color) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.05em;
+  white-space: nowrap !important;
+}
+
+.footer-extra {
+  opacity: 0.6 !important;
+  font-style: italic !important;
+}
+

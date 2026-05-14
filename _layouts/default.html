@@ -2,21 +2,54 @@
 <html lang="{{ page.lang | default: "en" }}">
   {%- include head.html -%}
   <body a="{{ site.theme_config.appearance | default: "auto" }}">
-    <main class="page-content" aria-label="Content">
-      <div class="banner-switch" onclick="toggleTheme()">
-        <div class="banner-info">
-          <span class="status-tag">MODE</span>
-          <p class="banner-main-text">Click here to toggle Dark/Light mode</p>
+    <div class="site-wrapper">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <a href="{{ '/' | relative_url }}">TS</a>
         </div>
-        <div class="visual-indicator">
-          <div class="indicator-circle"></div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li><a href="{{ '/' | relative_url }}">Home</a></li>
+            <li><a href="{{ '/project' | relative_url }}">Project</a></li>
+            <li><a href="{{ '/learning-log' | relative_url }}">Learning Log</a></li>
+            <li><a href="{{ '/history' | relative_url }}">History</a></li>
+          </ul>
+        </nav>
+        
+        <div class="banner-switch" onclick="toggleTheme()" style="margin-top: 2rem;">
+          <div class="banner-info">
+            <span class="status-tag" id="theme-label">LIGHT</span>
+          </div>
+          <div class="visual-indicator">
+            <div class="indicator-circle"></div>
+          </div>
         </div>
-      </div>
 
-      <div class="w">
-        {{ content }}
-      </div>
-    </main>
+        <div class="banner-switch" style="margin-top: 1rem; cursor: default !important;">
+          <div class="banner-info">
+            <span class="status-tag">TIME</span>
+            <p id="digital-clock" style="margin: 0; font-family: var(--font-code); font-weight: 600; font-size: 1.1rem; color: var(--text-color);">00:00:00</p>
+          </div>
+        </div>
+
+        <div class="sidebar-spacer" style="flex: 1;"></div>
+      </aside>
+
+      <main class="page-content" aria-label="Content">
+        <div class="w">
+          {{ content }}
+        </div>
+
+        <footer class="site-footer">
+          <div class="w">
+            <div class="footer-content">
+              <p>&copy; {{ "now" | date: "%Y" }} TAESUB. All rights reserved.</p>
+              <p class="footer-extra">Built with passion &amp; Jekyll. Sharing the journey of growth.</p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
 
     {%-if site.goat_counter and jekyll.environment == "production"-%}
       {%-include goat_counter.html-%}
@@ -28,17 +61,39 @@
       {% endfor %}
     {% endif %}
     <script>
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const clockElement = document.getElementById('digital-clock');
+    if (clockElement) {
+      clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  function updateThemeLabel(theme) {
+    const label = document.getElementById('theme-label');
+    if (label) {
+      label.textContent = theme === 'dark' ? 'DARK' : 'LIGHT';
+    }
+  }
+
   function toggleTheme() {
     const body = document.body;
     const current = body.getAttribute('a') || 'light';
     const next = current === 'dark' ? 'light' : 'dark';
     body.setAttribute('a', next);
     localStorage.setItem('theme', next);
+    updateThemeLabel(next);
   }
 
   // 초기 테마 설정
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.body.setAttribute('a', savedTheme);
+  updateThemeLabel(savedTheme);
 </script>
   </body>
 </html>
