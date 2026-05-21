@@ -1,0 +1,55 @@
+# CLAUDE.md (프로젝트 개발 가이드)
+
+이 파일은 Claude와 같은 AI 어시스턴트가 프로젝트 구조를 빠르게 파악하고 일관된 스타일로 개발할 수 있도록 돕는 지침서입니다.
+
+## 1. 프로젝트 개요 (Overview)
+- **설명**: Jekyll 기반의 미니멀리즘 테마 `no-style-please`를 커스터마이징한 개인 포트폴리오 및 기술 블로그입니다.
+- **주요 테마**: VS Code Light/Dark Modern 스타일(에디터 느낌의 레이아웃, 코드 하이라이팅, SUIT 및 개발용 폰트, 커스텀 마우스 커서, 디지털 시계 등)이 적용되어 있습니다.
+
+## 2. 주요 빌드 및 실행 명령 (Commands)
+로컬 환경에서 개발하거나 빌드할 때 사용하는 Ruby/Jekyll 명령입니다.
+
+- **의존성 패키지 설치**:
+  ```bash
+  bundle install
+  ```
+- **로컬 개발 서버 실행** (기본 주소: `http://localhost:4000`):
+  ```bash
+  bundle exec jekyll serve
+  ```
+- **정적 사이트 빌드**:
+  ```bash
+  bundle exec jekyll build
+  ```
+- **빌드 캐시 및 생성된 사이트 정리**:
+  ```bash
+  bundle exec jekyll clean
+  ```
+
+## 3. 프로젝트 구조 (Structure)
+- `_config.yml`: 사이트 메타데이터, 플러그인, Jekyll/JekTex 설정
+- `_data/menu.yml`: 메인 포스트 목록 및 외부 링크 네비게이션 설정
+- `_layouts/`: 페이지 구조를 정의하는 레이아웃 파일
+  - `default.html`: 사이드바(로고, 메뉴, 다크모드 스위치, 디지털 시계), 본문 영역, 푸터가 통합된 전체 레이아웃
+  - `home.html` / `page.html` / `post.html` / `archive.html`
+- `_includes/`: 템플릿의 재사용 부품 (`head.html`, `post_list.html` 등)
+- `_posts/`: 마크다운 포스트 파일들 (`YYYY-MM-DD-title.md` 형식)
+- `assets/css/main.scss`: VS Code 스타일 테마(색상 변수, 폰트 설정, 사이드바/콘텐츠 2단 레이아웃, 36px 크기 마우스 커서 등)가 선언된 핵심 스타일시트
+- `assets/js/`: 자바스크립트 파일 디렉토리
+  - `mouse_coords.js`: 마우스 좌표 추적 스크립트
+
+## 4. 코드 스타일 및 작성 지침 (Code Style & Guidelines)
+- **레이아웃 적용**:
+  - 일반 정보 페이지는 `layout: page`를 사용합니다.
+  - 블로그 글은 `layout: post`를 사용합니다.
+  - 메인/소개용 페이지는 `layout: home`을 사용합니다.
+- **CSS / 스타일 가이드**:
+  - 커스텀 스타일은 `assets/css/main.scss`에 기술하며, 테마 변경 시 `:root` 및 `body[a="dark"]`에 정의된 CSS 변수(--bg, --box-bg, --text-color 등)를 준수해야 합니다.
+  - 다크모드 전환 시 이미지가 엑스레이처럼 색상 반전되는 문제를 방지하는 필터가 적용되어 있습니다. 만약 색상 반전이 필요한 이미지가 있다면 태그에 `ioda` 클래스(`class="ioda"`)를 명시해 줍니다.
+- **수식 작성**:
+  - `jektex` 플러그인을 사용하여 수학 기호 및 수식 렌더링을 지원합니다. (매크로 예: `\Q`, `\C` 등)
+- **네비게이션**:
+  - 사이드바 네비게이션은 `_layouts/default.html`에 하드코딩되어 있으므로 관련 메뉴를 추가/변경할 경우 해당 템플릿 파일을 편집해야 합니다.
+  - 서브 리스트 형태의 메뉴(posts 링크 등)는 `_data/menu.yml`을 통해 렌더링됩니다.
+- **자바스크립트 호출**:
+  - 마크다운 파일의 Front Matter에서 `custom_js: ["script_name"]` 형태로 입력하면 `assets/js/script_name.js`를 동적으로 로드합니다.
