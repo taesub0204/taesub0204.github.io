@@ -4,12 +4,97 @@ layout: default
 
 {%-include back_link.html-%}
 
-<article>
-  <p class="post-meta">
-    <time datetime="{{ page.date }}">{{ page.date | date: site.theme_config.date_format }}</time>
-  </p>
-  
-  <h1>{{ page.title }}</h1>
+<div class="post-layout-container">
+  <article class="post-article">
+    <p class="post-meta">
+      <time datetime="{{ page.date }}">{{ page.date | date: site.theme_config.date_format }}</time>
+    </p>
+    
+    <h1 class="post-title">{{ page.title }}</h1>
 
-  {{ content }}
-</article>
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </article>
+
+  <!-- Table of Contents (TOC) Navigator -->
+  <aside class="toc-sidebar" aria-label="Table of Contents">
+    <div class="toc-title">목차</div>
+    <nav class="toc-nav" id="toc-nav-list">
+      <!-- Generated dynamically by JS -->
+    </nav>
+  </aside>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const article = document.querySelector(".post-article");
+  const tocNav = document.getElementById("toc-nav-list");
+  if (!article || !tocNav) return;
+
+  const headings = article.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4");
+  if (headings.length === 0) {
+    const sidebar = document.querySelector(".toc-sidebar");
+    if (sidebar) sidebar.style.display = "none";
+    return;
+  }
+
+  const ul = document.createElement("ul");
+  ul.className = "toc-list";
+
+  headings.forEach((heading, index) => {
+    if (!heading.id) {
+      heading.id = "heading-" + index;
+    }
+
+    const li = document.createElement("li");
+    li.className = "toc-item toc-" + heading.tagName.toLowerCase();
+    
+    const a = document.createElement("a");
+    a.href = "#" + heading.id;
+    // Remove leading # symbols or spaces if any
+    a.textContent = heading.textContent.replace(/^[#\s]+/, '').trim();
+    a.className = "toc-link";
+    
+    a.addEventListener("click", function(e) {
+      e.preventDefault();
+      const target = document.getElementById(heading.id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, null, "#" + heading.id);
+      }
+    });
+
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+
+  tocNav.appendChild(ul);
+
+  // ScrollSpy function
+  const links = ul.querySelectorAll(".toc-link");
+  const observerOptions = {
+    root: null,
+    rootMargin: "-10% 0px -70% 0px",
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(link => {
+          if (link.getAttribute("href") === "#" + id) {
+            link.classList.add("active");
+            link.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  headings.forEach(heading => observer.observe(heading));
+});
+</script>
