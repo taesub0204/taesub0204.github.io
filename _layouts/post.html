@@ -121,12 +121,15 @@ document.addEventListener("DOMContentLoaded", function() {
   // ── 최소화 토글 ──
   const toggleBtn = document.getElementById("toc-toggle-btn");
   const tocBody   = document.getElementById("toc-body");
+  const tocSidebar = document.querySelector(".toc-sidebar");
   let collapsed = false;
 
   toggleBtn.addEventListener("click", function() {
     collapsed = !collapsed;
     tocBody.style.display = collapsed ? "none" : "";
     toggleBtn.classList.toggle("toc-btn-active", collapsed);
+    if (tocSidebar) tocSidebar.classList.toggle("collapsed", collapsed);
+    if (article) article.classList.toggle("toc-collapsed", collapsed);
   });
 
   // ── ScrollSpy ──

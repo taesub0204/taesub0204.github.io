@@ -815,6 +815,7 @@ header p {
     flex: 1 !important;
     margin-right: 270px !important; /* 우측 목차 영역(250px) + 여백(20px) 공간 확보 */
     min-width: 0 !important;
+    transition: margin-right 0.3s ease !important;
   }
 
   .toc-sidebar {
@@ -831,7 +832,16 @@ header p {
     box-sizing: border-box !important;
     z-index: 90 !important;
     overflow: hidden !important;          /* 전체 스크롤 차단 */
-    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+    transition: width 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+  }
+
+  /* TOC 최소화 상태 */
+  .toc-sidebar.collapsed {
+    width: 60px !important;
+  }
+
+  .post-article.toc-collapsed {
+    margin-right: 80px !important; /* 최소화 시 여백 조정 (60px + 20px) */
   }
 
   /* 검색 + 버튼 고정 영역 (스크롤 안됨) */
@@ -843,6 +853,20 @@ header p {
     display: flex !important;
     flex-direction: column !important;
     gap: 0.7rem !important;
+  }
+
+  .toc-sidebar.collapsed .toc-controls-area {
+    padding: 1.2rem 0.6rem 0.8rem !important;
+  }
+
+  .toc-sidebar.collapsed .toc-search-input {
+    display: none !important;
+  }
+
+  .toc-sidebar.collapsed .toc-ctrl-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .toc-search-input {
