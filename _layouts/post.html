@@ -19,10 +19,40 @@ layout: default
 
   <!-- Table of Contents (TOC) Navigator -->
   <aside class="toc-sidebar" aria-label="Table of Contents">
-    <div class="toc-title">목차</div>
-    <nav class="toc-nav" id="toc-nav-list">
-      <!-- Generated dynamically by JS -->
-    </nav>
+
+    <!-- 검색 + 컨트롤 버튼 영역 (고정, 스크롤 안됨) -->
+    <div class="toc-controls-area">
+      <input type="text" id="toc-search-input" class="toc-search-input" placeholder="검색어를 입력하세요." />
+      <div class="toc-ctrl-buttons">
+        <!-- 검색 버튼 -->
+        <button class="toc-ctrl-btn" id="toc-search-btn" title="검색">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+        <!-- 최소화/펼치기 토글 버튼 -->
+        <button class="toc-ctrl-btn" id="toc-toggle-btn" title="목차 접기/펼치기">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <!-- 홈 버튼 -->
+        <a href="{{ '/' | relative_url }}" class="toc-ctrl-btn" title="홈으로">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- 목차 타이틀 + 목록 (스크롤 가능) -->
+    <div class="toc-body" id="toc-body">
+      <div class="toc-title">목차</div>
+      <nav class="toc-nav" id="toc-nav-list">
+        <!-- Generated dynamically by JS -->
+      </nav>
+    </div>
   </aside>
 </div>
 
@@ -52,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const a = document.createElement("a");
     a.href = "#" + heading.id;
-    // Remove leading # symbols or spaces if any
     a.textContent = heading.textContent.replace(/^[#\s]+/, '').trim();
     a.className = "toc-link";
     
@@ -71,7 +100,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
   tocNav.appendChild(ul);
 
-  // ScrollSpy function
+  // ── 검색 기능 ──
+  const searchInput = document.getElementById("toc-search-input");
+  const searchBtn   = document.getElementById("toc-search-btn");
+
+  function doSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    ul.querySelectorAll(".toc-item").forEach(item => {
+      const text = item.querySelector(".toc-link").textContent.toLowerCase();
+      item.style.display = (!query || text.includes(query)) ? "" : "none";
+    });
+  }
+
+  searchBtn.addEventListener("click", doSearch);
+  searchInput.addEventListener("input", doSearch);      // 실시간 필터
+  searchInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") doSearch();
+  });
+
+  // ── 최소화 토글 ──
+  const toggleBtn = document.getElementById("toc-toggle-btn");
+  const tocBody   = document.getElementById("toc-body");
+  let collapsed = false;
+
+  toggleBtn.addEventListener("click", function() {
+    collapsed = !collapsed;
+    tocBody.style.display = collapsed ? "none" : "";
+    toggleBtn.classList.toggle("toc-btn-active", collapsed);
+  });
+
+  // ── ScrollSpy ──
   const links = ul.querySelectorAll(".toc-link");
   const observerOptions = {
     root: null,
@@ -98,3 +156,4 @@ document.addEventListener("DOMContentLoaded", function() {
   headings.forEach(heading => observer.observe(heading));
 });
 </script>
+
