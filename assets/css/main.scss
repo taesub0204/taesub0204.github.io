@@ -634,6 +634,13 @@ header p {
   .page-header .main-title {
     font-size: 2rem !important; /* 모바일에서 메인 제목 폰트 크기 축소 */
   }
+
+  /* 모바일에서 코드 블록 줄바꿈 적용 및 가독성을 위한 폰트 크기 조정 */
+  div.highlighter-rouge code, pre {
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    font-size: 0.85em !important;
+  }
 }
 
 /* ========================================= */
