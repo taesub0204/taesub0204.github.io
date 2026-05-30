@@ -882,6 +882,7 @@ public class Test10 {
 ```
 
 ### 16. JAVA/Test11.java - 가변 다차원 배열
+{% raw %}
 ```java
 // ==========================================
 // [최종 실행 결과(정답)]
@@ -907,6 +908,7 @@ public class Test11 {
     }
 }
 ```
+{% endraw %}
 
 ### 17. JAVA/Test12.java - 정수 숫자 거꾸로 결합
 ```java
