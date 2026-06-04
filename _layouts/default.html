@@ -15,7 +15,7 @@
             <li><a href="{{ '/history' | relative_url }}">History</a></li>
           </ul>
         </nav>
-        <div class="banner-switch" onclick="toggleTheme()" style="margin-top: 2rem;">
+        <div class="banner-switch hide-on-mobile" onclick="toggleTheme()" style="margin-top: 2rem;">
           <div class="banner-info">
             <span class="status-tag" id="theme-label">LIGHT</span>
           </div>
@@ -43,7 +43,7 @@
         <div class="sidebar-spacer" style="flex: 1;"></div>
 
         <!-- 3D Dice Widget -->
-        <div class="dice-container" id="dice-container" title="Click to roll" style="margin-bottom: 2rem;">
+        <div class="dice-container hide-on-mobile" id="dice-container" title="Click to roll" style="margin-bottom: 2rem;">
           <div class="dice idle" id="dice">
             <div class="dice-face front"></div>
             <div class="dice-face back"></div>
