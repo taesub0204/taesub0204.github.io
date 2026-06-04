@@ -617,6 +617,11 @@ header p {
     display: block !important;
   }
   
+  .mobile-only-clock {
+    display: block !important;
+    transition: opacity 0.3s ease;
+  }
+
   .widgets-container {
     display: none;
     width: 100%;
@@ -1298,10 +1303,212 @@ header p {
   font-size: 1.1rem;
 }
 .timeline-content p {
+  .w .toc-link:link,
+  .w .toc-link:visited {
+    color: var(--text-color) !important; /* 항상 기본 텍스트 색상(검정/다크모드대비색)으로 고정 */
+    text-decoration: none !important; /* 밑줄 해제 */
+    transition: all 0.25s ease !important;
+    display: block !important;
+    padding: 0.35rem 0.8rem !important;
+    border-radius: 6px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* 호버 상태 */
+  .w .toc-link:hover,
+  .w .toc-link:focus {
+    background-color: var(--text-color) !important;
+    color: var(--box-bg) !important; /* 텍스트 반전 */
+    text-decoration: none !important;
+    transform: scale(1.02) !important;
+  }
+  
+  /* 활성(Active) 상태 - 호버와 동일한 검정 반전 */
+  .w .toc-link.active {
+    background-color: var(--text-color) !important;
+    color: var(--box-bg) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+  }
+}
+
+/* =======================================
+   3D Dice Styles
+   ======================================= */
+.dice-container {
+  width: 50px;
+  height: 50px;
+  perspective: 400px;
+  margin: 1.5rem auto 0;
+  cursor: pointer;
+}
+.dice {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.dice-face {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dice-face::after {
+  content: '';
+  display: block;
+  background: #333;
+  border-radius: 50%;
+}
+.dice-face.front  { transform: rotateY(0deg) translateZ(25px); }
+.dice-face.back   { transform: rotateY(180deg) translateZ(25px); }
+.dice-face.right  { transform: rotateY(90deg) translateZ(25px); }
+.dice-face.left   { transform: rotateY(-90deg) translateZ(25px); }
+.dice-face.top    { transform: rotateX(90deg) translateZ(25px); }
+.dice-face.bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+/* Dots styling */
+.dice-face.front::after { width: 12px; height: 12px; background: #e74c3c; } /* 1 (Red dot) */
+.dice-face.back { flex-direction: column; gap: 8px; }
+.dice-face.back::before, .dice-face.back::after { content: ''; width: 10px; height: 10px; background: #333; border-radius: 50%; display: block; } /* 2 */
+.dice-face.right { align-items: flex-start; padding: 4px; gap: 2px; }
+.dice-face.right::before, .dice-face.right::after, .dice-face.right span { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; display: block; align-self: flex-end; }
+.dice-face.right::before { align-self: flex-start; }
+.dice-face.right span { align-self: center; position: absolute; } /* 3 */
+.dice-face.left { display: grid; grid-template-columns: 1fr 1fr; padding: 6px; gap: 6px; justify-items: center; align-items: center; }
+.dice-face.left::before, .dice-face.left::after, .dice-face.left span, .dice-face.left i { content: ''; width: 10px; height: 10px; background: #333; border-radius: 50%; display: block; } /* 4 */
+.dice-face.top { display: grid; grid-template-columns: 1fr 1fr; padding: 6px; gap: 6px; justify-items: center; align-items: center; }
+.dice-face.top::before, .dice-face.top::after, .dice-face.top span, .dice-face.top i { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; display: block; }
+.dice-face.top b { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); } /* 5 */
+.dice-face.bottom { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; gap: 4px; justify-items: center; align-items: center; }
+.dice-face.bottom::before, .dice-face.bottom::after, .dice-face.bottom span, .dice-face.bottom i, .dice-face.bottom b, .dice-face.bottom em { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; display: block; } /* 6 */
+
+/* Idle animation (Gentle sway) */
+@keyframes diceIdle {
+  0% { transform: rotateX(-15deg) rotateY(-20deg) translateY(0); }
+  50% { transform: rotateX(5deg) rotateY(10deg) translateY(-8px); }
+  100% { transform: rotateX(-15deg) rotateY(-20deg) translateY(0); }
+}
+.dice.idle { animation: diceIdle 6s infinite ease-in-out; }
+
+/* =======================================
+   Project Grid Styles
+   ======================================= */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 860px; /* 너무 과도하게 늘어나지 않도록 최대 너비 제한 */
+}
+
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr; /* 모바일에서는 1열 */
+  }
+}
+
+.project-card {
+  border: 1px solid var(--box-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  background: var(--box-bg);
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.project-thumb {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  background: #eee;
+}
+.project-info {
+  padding: 1.2rem;
+}
+.project-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+.project-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* =======================================
+   History Timeline Styles
+   ======================================= */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding-left: 2rem;
+  border-left: 2px solid var(--box-border);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.4rem;
+  top: 0.3rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-color);
+  border: 2px solid var(--box-bg);
+  box-shadow: 0 0 0 2px var(--box-border);
+}
+.timeline-date {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color);
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.timeline-content {
+  background: var(--box-bg);
+  border: 1px solid var(--box-border);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+}
+.timeline-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+.timeline-content p {
   margin: 0;
   font-size: 0.95rem;
   opacity: 0.9;
 }
 
-
-
+/* =======================================
+   Utility Classes
+   ======================================= */
+@media (min-width: 769px) {
+  .inner-compact-content {
+    max-width: 850px !important;
+    margin: 0 auto !important;
+  }
+}

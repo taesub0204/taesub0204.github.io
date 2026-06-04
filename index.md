@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Home
+content_width: compact
 ---
 
 # **TeSter Cho**

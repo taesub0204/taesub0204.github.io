@@ -10,5 +10,6 @@ layout: default
     {% endif %}
   </h1>
 </header>
-
-{{ content }}
+<div class="{% if page.content_width == 'compact' %}inner-compact-content{% endif %}">
+  {{ content }}
+</div>

@@ -5,6 +5,7 @@
     <div class="site-wrapper">
       <aside class="sidebar">
         <div class="sidebar-header" style="display: flex; width: 100%; justify-content: center; align-items: center; position: relative;">
+          <div id="mobile-header-clock" class="mobile-only-clock" style="position: absolute; left: 1rem; font-family: var(--font-code); font-weight: 600; font-size: 0.95rem; color: var(--text-color); display: none;">00:00:00</div>
           <div class="sidebar-logo" style="margin: 0 !important;">
             <a href="{{ '/' | relative_url }}">TS</a>
           </div>
@@ -66,10 +67,11 @@
         </div>
       </aside>
 
-      <main class="page-content" aria-label="Content">
+      <main class="page-content {% if page.content_width == 'compact' %}compact-content{% endif %}" aria-label="Content">
         <div class="w">
           {{ content }}
         </div>
+      </main>
 
         <footer class="site-footer">
           <div class="w">
@@ -127,10 +129,11 @@
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
     const clockElement = document.getElementById('digital-clock');
-    if (clockElement) {
-      clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-    }
+    if (clockElement) clockElement.textContent = timeString;
+    const mobileClockElement = document.getElementById('mobile-header-clock');
+    if (mobileClockElement) mobileClockElement.textContent = timeString;
   }
   setInterval(updateClock, 1000);
   updateClock();
@@ -229,16 +232,19 @@
   function toggleMobileWidgets() {
     const container = document.getElementById('mobile-widgets-container');
     const toggleBtn = document.getElementById('mobile-widget-toggle');
+    const mobileClock = document.getElementById('mobile-header-clock');
     if (!container || !toggleBtn) return;
     
     if (container.classList.contains('expanded')) {
       container.classList.remove('expanded');
       toggleBtn.classList.remove('expanded');
       toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+      if (mobileClock) mobileClock.style.opacity = '1';
     } else {
       container.classList.add('expanded');
       toggleBtn.classList.add('expanded');
       toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+      if (mobileClock) mobileClock.style.opacity = '0';
     }
   }
 
