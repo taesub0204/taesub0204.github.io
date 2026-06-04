@@ -97,7 +97,6 @@ html, body {
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow-x: hidden !important; /* 모바일에서 좌우 스크롤바 방지 */
 }
 
 body[a="dark"] img, body[a="dark"] iframe {
@@ -166,14 +165,14 @@ p, li, a, h1, h2, h3, h4, h5, h6, blockquote {
   box-sizing: border-box !important;
 }
 
-/* 화살표 커서 - 36px */
+/* 화살표 커서 - 36px (3D 입체 효과 추가) */
 .w {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M4.5 1.9L20.2 12.3L12.7 13.7L16.8 21.6L14.2 22.8L10.1 14.9L4.5 18.2V1.9Z" fill="black" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>') 6 2, auto !important;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 28 28" fill="none"><filter id="shadow"><feDropShadow dx="1.5" dy="2.5" stdDeviation="2" flood-color="black" flood-opacity="0.4"/></filter><path d="M5.5 2.9L21.2 13.3L13.7 14.7L17.8 22.6L15.2 23.8L11.1 15.9L5.5 19.2V2.9Z" fill="%23222" stroke="white" stroke-width="1.5" stroke-linejoin="round" filter="url(%23shadow)"/></svg>') 6 2, auto !important;
 }
 
-/* 링크(a)나 버튼 위 손가락 커서 */
-.w a:hover, .w button:hover, .banner-switch {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M10 3V12M10 12L7 10L5 13L11 21H18V13L15 11V5C15 3.89543 14.1046 3 13 3C11.8954 3 11 3.89543 11 5V11" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"/></svg>') 12 2, pointer !important;
+/* 링크(a)나 버튼 위 손가락 커서 (3D 입체 효과 추가) */
+.w a:hover, .w button:hover, .banner-switch, .project-card:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 28 28" fill="none"><filter id="shadow2"><feDropShadow dx="1.5" dy="2.5" stdDeviation="2" flood-color="black" flood-opacity="0.3"/></filter><path d="M11 4V13M11 13L8 11L6 14L12 22H19V14L16 12V6C16 4.89543 15.1046 4 14 4C12.8954 4 12 4.89543 12 6V12" stroke="%23222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white" filter="url(%23shadow2)"/></svg>') 12 2, pointer !important;
 }
 
 /* ========================================= */
@@ -518,6 +517,7 @@ header p {
   max-width: none !important;
   background-color: var(--box-bg) !important; /* 본문 배경과 일치시켜 빈틈 방지 */
   margin: 0 !important;
+  overflow-x: clip !important; /* 모바일에서 좌우 스크롤바 방지 (sticky 버그 우회) */
 }
 
 .sidebar {
@@ -599,7 +599,10 @@ header p {
   .sidebar {
     width: 100% !important;
     height: auto !important;
-    position: static !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 999 !important;
+    background-color: var(--box-bg) !important;
     border-right: none !important;
     border-bottom: 1px solid var(--border-color) !important;
     padding: 1.5rem 1rem !important;
@@ -1087,5 +1090,175 @@ header p {
     text-decoration: none !important;
   }
 }
+
+/* =======================================
+   3D Dice Styles
+   ======================================= */
+.dice-container {
+  width: 50px;
+  height: 50px;
+  perspective: 400px;
+  margin: 1.5rem auto 0;
+  cursor: pointer;
+}
+.dice {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.dice-face {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dice-face::after {
+  content: '';
+  display: block;
+  background: #333;
+  border-radius: 50%;
+}
+.dice-face.front  { transform: rotateY(0deg) translateZ(25px); }
+.dice-face.back   { transform: rotateY(180deg) translateZ(25px); }
+.dice-face.right  { transform: rotateY(90deg) translateZ(25px); }
+.dice-face.left   { transform: rotateY(-90deg) translateZ(25px); }
+.dice-face.top    { transform: rotateX(90deg) translateZ(25px); }
+.dice-face.bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+/* Dots styling */
+.dice-face.front::after { width: 12px; height: 12px; background: #e74c3c; } /* 1 (Red dot) */
+.dice-face.back { flex-direction: column; gap: 8px; }
+.dice-face.back::before, .dice-face.back::after { content: ''; width: 10px; height: 10px; background: #333; border-radius: 50%; display: block; } /* 2 */
+.dice-face.right { align-items: flex-start; padding: 4px; gap: 2px; }
+.dice-face.right::before, .dice-face.right::after, .dice-face.right span { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; display: block; align-self: flex-end; }
+.dice-face.right::before { align-self: flex-start; }
+.dice-face.right span { align-self: center; position: absolute; } /* 3 */
+.dice-face.left { display: grid; grid-template-columns: 1fr 1fr; padding: 6px; gap: 6px; justify-items: center; align-items: center; }
+.dice-face.left::before, .dice-face.left::after, .dice-face.left span, .dice-face.left i { content: ''; width: 10px; height: 10px; background: #333; border-radius: 50%; display: block; } /* 4 */
+.dice-face.top { display: grid; grid-template-columns: 1fr 1fr; padding: 6px; gap: 6px; justify-items: center; align-items: center; }
+.dice-face.top::before, .dice-face.top::after, .dice-face.top span, .dice-face.top i { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; display: block; }
+.dice-face.top b { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); } /* 5 */
+.dice-face.bottom { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; gap: 4px; justify-items: center; align-items: center; }
+.dice-face.bottom::before, .dice-face.bottom::after, .dice-face.bottom span, .dice-face.bottom i, .dice-face.bottom b, .dice-face.bottom em { content: ''; width: 8px; height: 8px; background: #333; border-radius: 50%; display: block; } /* 6 */
+
+/* Idle animation (Gentle sway) */
+@keyframes diceIdle {
+  0% { transform: rotateX(-15deg) rotateY(-20deg) translateY(0); }
+  50% { transform: rotateX(5deg) rotateY(10deg) translateY(-8px); }
+  100% { transform: rotateX(-15deg) rotateY(-20deg) translateY(0); }
+}
+.dice.idle { animation: diceIdle 6s infinite ease-in-out; }
+
+/* =======================================
+   Project Grid Styles
+   ======================================= */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 860px; /* 너무 과도하게 늘어나지 않도록 최대 너비 제한 */
+}
+
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr; /* 모바일에서는 1열 */
+  }
+}
+
+.project-card {
+  border: 1px solid var(--box-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  background: var(--box-bg);
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.project-thumb {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  background: #eee;
+}
+.project-info {
+  padding: 1.2rem;
+}
+.project-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+.project-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* =======================================
+   History Timeline Styles
+   ======================================= */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding-left: 2rem;
+  border-left: 2px solid var(--box-border);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.4rem;
+  top: 0.3rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-color);
+  border: 2px solid var(--box-bg);
+  box-shadow: 0 0 0 2px var(--box-border);
+}
+.timeline-date {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color);
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.timeline-content {
+  background: var(--box-bg);
+  border: 1px solid var(--box-border);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+}
+.timeline-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+.timeline-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
 
 

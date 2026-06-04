@@ -15,7 +15,6 @@
             <li><a href="{{ '/history' | relative_url }}">History</a></li>
           </ul>
         </nav>
-        
         <div class="banner-switch" onclick="toggleTheme()" style="margin-top: 2rem;">
           <div class="banner-info">
             <span class="status-tag" id="theme-label">LIGHT</span>
@@ -31,7 +30,29 @@
           </div>
         </div>
 
+        {% if page.layout == 'post' %}
+        <div id="sidebar-back-btn" class="banner-switch" onclick="location.href='{{ '/learning-log.html' | relative_url }}'" style="margin-top: 1rem; justify-content: center !important; opacity: 0; pointer-events: none; transform: translateY(-10px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer !important;">
+          <div class="banner-info" style="align-items: center !important;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; stroke: var(--text-color);">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </div>
+        </div>
+        {% endif %}
+
         <div class="sidebar-spacer" style="flex: 1;"></div>
+
+        <!-- 3D Dice Widget -->
+        <div class="dice-container" id="dice-container" title="Click to roll" style="margin-bottom: 2rem;">
+          <div class="dice idle" id="dice">
+            <div class="dice-face front"></div>
+            <div class="dice-face back"></div>
+            <div class="dice-face right"><span></span></div>
+            <div class="dice-face left"><span></span><i></i></div>
+            <div class="dice-face top"><span></span><i></i><b></b></div>
+            <div class="dice-face bottom"><span></span><i></i><b></b><em></em></div>
+          </div>
+        </div>
       </aside>
 
       <main class="page-content" aria-label="Content">
@@ -135,6 +156,72 @@
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.body.setAttribute('a', savedTheme);
   updateThemeLabel(savedTheme);
+
+  // 스크롤 시 사이드바 뒤로가기 버튼 애니메이션 (포스트 페이지용)
+  window.addEventListener('scroll', function() {
+    const sidebarBackBtn = document.getElementById('sidebar-back-btn');
+    if (sidebarBackBtn) {
+      if (window.scrollY > 150) {
+        sidebarBackBtn.style.opacity = '1';
+        sidebarBackBtn.style.pointerEvents = 'auto';
+        sidebarBackBtn.style.transform = 'translateY(0)';
+      } else {
+        sidebarBackBtn.style.opacity = '0';
+        sidebarBackBtn.style.pointerEvents = 'none';
+        sidebarBackBtn.style.transform = 'translateY(-10px)';
+      }
+    }
+  });
+
+  // 주사위 상태 변수
+  let currentX = 0;
+  let currentY = 0;
+  let currentZ = 0;
+
+  function rollDice() {
+    const dice = document.getElementById('dice');
+    if (!dice) return;
+    
+    // 기본 대기 애니메이션 제거
+    dice.classList.remove('idle');
+    
+    // 클릭 시 720도 추가 회전 + 랜덤 면
+    currentX += getRandom(1, 4) * 90 + 720;
+    currentY += getRandom(1, 4) * 90 + 720;
+    currentZ += getRandom(1, 4) * 90;
+
+    dice.style.transition = 'transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) rotateZ(${currentZ}deg)`;
+  }
+
+  function shiftDiceOnLoad() {
+    const dice = document.getElementById('dice');
+    if (!dice) return;
+    
+    dice.classList.remove('idle');
+    
+    // 페이지 이동 시에는 어지럽지 않게 90~270도(1~3칸)만 스윽 돌림
+    currentX = getRandom(1, 4) * 90;
+    currentY = getRandom(1, 4) * 90;
+    
+    dice.style.transition = 'transform 0.8s ease-out';
+    setTimeout(() => {
+      dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) rotateZ(0deg)`;
+    }, 50);
+  }
+
+  function getRandom(max, min) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  // 페이지 이동 시 살짝 한 면 전환 (스핀 없이 주사위 값 변경)
+  document.addEventListener('DOMContentLoaded', shiftDiceOnLoad);
+
+  // 클릭 시 다이나믹하게 굴림
+  const diceContainer = document.getElementById('dice-container');
+  if (diceContainer) {
+    diceContainer.addEventListener('click', rollDice);
+  }
 </script>
   </body>
 </html>
