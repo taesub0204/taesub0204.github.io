@@ -605,12 +605,28 @@ header p {
     background-color: var(--box-bg) !important;
     border-right: none !important;
     border-bottom: 1px solid var(--border-color) !important;
-    padding: 1.5rem 1rem !important;
+    padding: 0.5rem 1rem !important; /* 상하 여백 대폭 줄임 */
     align-items: center !important;
   }
   
-  .hide-on-mobile {
-    display: none !important;
+  .sidebar-header {
+    margin-bottom: 0.25rem !important; /* 모바일에서 로고와 메뉴 사이 마진 대폭 줄임 */
+  }
+  
+  .mobile-only-btn {
+    display: block !important;
+  }
+  
+  .widgets-container {
+    display: none;
+    width: 100%;
+  }
+  
+  .widgets-container.expanded {
+    display: block;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
   }
   
   .page-content {
@@ -618,7 +634,7 @@ header p {
   }
   
   .sidebar-logo a {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0 !important; /* 모바일 로고 하단 여백 제거 */
     text-align: center !important;
     border-bottom: none !important;
     padding-bottom: 0 !important;
@@ -628,7 +644,8 @@ header p {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 1.5rem !important;
+    gap: 1rem !important; /* 모바일 메뉴 간격 축소 */
+    margin-bottom: 0 !important;
   }
   
   .sidebar-nav li {

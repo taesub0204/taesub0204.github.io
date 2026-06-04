@@ -4,9 +4,17 @@
   <body a="{{ site.theme_config.appearance | default: "auto" }}">
     <div class="site-wrapper">
       <aside class="sidebar">
-        <div class="sidebar-logo">
-          <a href="{{ '/' | relative_url }}">TS</a>
+        <div class="sidebar-header" style="display: flex; width: 100%; justify-content: center; align-items: center; position: relative;">
+          <div class="sidebar-logo" style="margin: 0 !important;">
+            <a href="{{ '/' | relative_url }}">TS</a>
+          </div>
+          <button id="mobile-widget-toggle" onclick="toggleMobileWidgets()" class="mobile-only-btn" style="position: absolute; right: 0; background: none; border: none; cursor: pointer; color: var(--text-color); display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
         </div>
+        
         <nav class="sidebar-nav">
           <ul>
             <li><a href="{{ '/' | relative_url }}">Home</a></li>
@@ -15,42 +23,45 @@
             <li><a href="{{ '/history' | relative_url }}">History</a></li>
           </ul>
         </nav>
-        <div class="banner-switch hide-on-mobile" onclick="toggleTheme()" style="margin-top: 2rem;">
-          <div class="banner-info">
-            <span class="status-tag" id="theme-label">LIGHT</span>
-          </div>
-          <div class="visual-indicator">
-            <div class="indicator-circle"></div>
-          </div>
-        </div>
 
-        <div class="banner-switch" style="margin-top: 1rem; cursor: default !important; justify-content: center !important;">
-          <div class="banner-info" style="align-items: center !important;">
-            <p id="digital-clock" style="margin: 0; font-family: var(--font-code); font-weight: 600; font-size: 1.2rem; color: var(--text-color); letter-spacing: 0.05em;">00:00:00</p>
+        <div id="mobile-widgets-container" class="widgets-container">
+          <div class="banner-switch" onclick="toggleTheme()" style="margin-top: 1rem;">
+            <div class="banner-info">
+              <span class="status-tag" id="theme-label">LIGHT</span>
+            </div>
+            <div class="visual-indicator">
+              <div class="indicator-circle"></div>
+            </div>
           </div>
-        </div>
 
-        {% if page.layout == 'post' %}
-        <div id="sidebar-back-btn" class="banner-switch" onclick="location.href='{{ '/learning-log.html' | relative_url }}'" style="margin-top: 1rem; justify-content: center !important; opacity: 0; pointer-events: none; transform: translateY(-10px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer !important;">
-          <div class="banner-info" style="align-items: center !important;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; stroke: var(--text-color);">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
+          <div class="banner-switch" style="margin-top: 1rem; cursor: default !important; justify-content: center !important;">
+            <div class="banner-info" style="align-items: center !important;">
+              <p id="digital-clock" style="margin: 0; font-family: var(--font-code); font-weight: 600; font-size: 1.2rem; color: var(--text-color); letter-spacing: 0.05em;">00:00:00</p>
+            </div>
           </div>
-        </div>
-        {% endif %}
 
-        <div class="sidebar-spacer" style="flex: 1;"></div>
+          {% if page.layout == 'post' %}
+          <div id="sidebar-back-btn" class="banner-switch" onclick="location.href='{{ '/learning-log.html' | relative_url }}'" style="margin-top: 1rem; justify-content: center !important; opacity: 0; pointer-events: none; transform: translateY(-10px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer !important;">
+            <div class="banner-info" style="align-items: center !important;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; stroke: var(--text-color);">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </div>
+          </div>
+          {% endif %}
 
-        <!-- 3D Dice Widget -->
-        <div class="dice-container hide-on-mobile" id="dice-container" title="Click to roll" style="margin-bottom: 2rem;">
-          <div class="dice idle" id="dice">
-            <div class="dice-face front"></div>
-            <div class="dice-face back"></div>
-            <div class="dice-face right"><span></span></div>
-            <div class="dice-face left"><span></span><i></i></div>
-            <div class="dice-face top"><span></span><i></i><b></b></div>
-            <div class="dice-face bottom"><span></span><i></i><b></b><em></em></div>
+          <div class="sidebar-spacer" style="flex: 1;"></div>
+
+          <!-- 3D Dice Widget -->
+          <div class="dice-container" id="dice-container" title="Click to roll" style="margin-bottom: 1rem; margin-top: 1rem;">
+            <div class="dice idle" id="dice">
+              <div class="dice-face front"></div>
+              <div class="dice-face back"></div>
+              <div class="dice-face right"><span></span></div>
+              <div class="dice-face left"><span></span><i></i></div>
+              <div class="dice-face top"><span></span><i></i><b></b></div>
+              <div class="dice-face bottom"><span></span><i></i><b></b><em></em></div>
+            </div>
           </div>
         </div>
       </aside>
@@ -212,6 +223,23 @@
 
   function getRandom(max, min) {
     return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  // 모바일 위젯 토글 함수
+  function toggleMobileWidgets() {
+    const container = document.getElementById('mobile-widgets-container');
+    const toggleBtn = document.getElementById('mobile-widget-toggle');
+    if (!container || !toggleBtn) return;
+    
+    if (container.classList.contains('expanded')) {
+      container.classList.remove('expanded');
+      toggleBtn.classList.remove('expanded');
+      toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+    } else {
+      container.classList.add('expanded');
+      toggleBtn.classList.add('expanded');
+      toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+    }
   }
 
   // 페이지 이동 시 살짝 한 면 전환 (스핀 없이 주사위 값 변경)
