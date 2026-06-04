@@ -640,16 +640,37 @@ header p {
     padding-bottom: 0 !important;
   }
   
+  .sidebar-nav {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
+    /* 스크롤바 숨기기 (선택사항) */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   .sidebar-nav ul {
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     justify-content: center !important;
-    gap: 1rem !important; /* 모바일 메뉴 간격 축소 */
-    margin-bottom: 0 !important;
+    gap: 0.8rem !important;
+    margin: 0 auto !important;
+    min-width: max-content !important; /* 자식 요소 크기 강제 유지 -> 겹침 완벽 해결 */
+    padding: 0 1rem !important; /* 양끝 여백 */
   }
   
   .sidebar-nav li {
     margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sidebar-nav a {
+    font-size: 0.9rem !important; /* 모바일 폰트 사이즈 축소하여 한 줄에 맞춤 */
+    padding: 0 !important;
+    margin-left: 0 !important; /* PC버전에 있던 음수 마진(-1rem) 초기화 -> 겹침 원인 제거 */
   }
 
   .w {
