@@ -655,11 +655,12 @@ header p {
   .sidebar-nav ul {
     display: flex !important;
     flex-wrap: nowrap !important;
-    justify-content: center !important;
-    gap: 0.8rem !important;
+    justify-content: space-between !important; /* 좌우 꽉 찬 느낌으로 분산 */
+    gap: 0.5rem !important;
     margin: 0 auto !important;
-    min-width: max-content !important; /* 자식 요소 크기 강제 유지 -> 겹침 완벽 해결 */
-    padding: 0 1rem !important; /* 양끝 여백 */
+    width: 100% !important; /* 영역 전체 사용 */
+    min-width: max-content !important;
+    padding: 0 0.5rem !important; /* 양끝 살짝 여백 */
   }
   
   .sidebar-nav li {
