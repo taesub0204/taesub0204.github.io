@@ -5,11 +5,11 @@ title: Project
 
 <div class="project-grid">
   <!-- 더미 프로젝트 1 -->
-  <a href="#" class="project-card">
-    <img src="https://dummyimage.com/600x400/eee/333.png&text=Test+Project+1" alt="Project 1" class="project-thumb">
+  <a href="/test-project-1" class="project-card">
+    <img src="/assets/img/ChatGPT Image 2026년 6월 1일 오후 03_06_43.png" alt="생성형 AI로 이미지 만들기" class="project-thumb">
     <div class="project-info">
-      <h3>Test Project 1</h3>
-      <p>이곳은 첫 번째 테스트 프로젝트에 대한 간단한 설명이 들어가는 공간입니다. 클릭하면 상세 페이지로 이동합니다.</p>
+      <h3>생성형 AI로 이미지 만들기</h3>
+      <p>생성형 AI를 활용하여 제작한 다양한 이미지 갤러리입니다. 클릭하면 상세 페이지로 이동합니다.</p>
     </div>
   </a>
 
