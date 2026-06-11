@@ -26,12 +26,11 @@ Python(Pandas)을 활용해 장비 가동 중 발생하는 센서 데이터와 �
 
 ### **역량 다지기 및 학습 내용**
 
-*   **다루는 도구** : C, C#, Pandas, Git
-*   **자격증 및 수료**: `[자격증 이름]` (취득), 반도체 8대 공정 기초 지식 교육 수료
-*   **기타 역량**: 컴퓨터활용능력 1급, 내선전화 대응 등
+*   **다루는 도구** : C, C#, Python, Pandas, Github, HTML5, CSS, SQL, Jira
+*   **수료**: 폴리텍 하이테크 과정 수료예정
+*   **기타 역량**: 네트워크관리사2급, ISTQB, 워드1급, 컴퓨터활용능력2급, 1종보통운전면허
 
 <br>
 
 ### **연락처**
-*   ✉️ **Email**: `[업무용 이메일]`
-*   🌐 **LinkedIn**: `[링크드인 프로필]`
+*   📝 **Contact**: [여기를 클릭하여 메시지 남기기](https://docs.google.com/forms/d/e/1FAIpQLSd2eyM44dupHtUyc3GbjP7EPmXpE114ObcB8Zkz9rWWQZTVsg/viewform?usp=publish-editor)
