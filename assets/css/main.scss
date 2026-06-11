@@ -347,7 +347,7 @@ hr {
 }
 
 /* 코드 블록 (Rouge) 구문 강조 (Syntax Highlighting) */
-.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp, .highlight .cs { color: var(--syn-comment) !important; font-style: italic !important; }
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp, .highlight .cs { color: var(--syn-comment) !important; font-style: normal !important; }
 .highlight .k, .highlight .kd, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kv { color: var(--syn-keyword) !important; font-weight: bold !important; }
 .highlight .s, .highlight .s1, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .sb, .highlight .sc { color: var(--syn-string) !important; }
 .highlight .m, .highlight .mi, .highlight .mf, .highlight .mo, .highlight .mh, .highlight .il { color: var(--syn-number) !important; }
