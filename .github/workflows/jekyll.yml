@@ -33,6 +33,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Calculate Site Version
+        run: |
+          BASE_COMMIT=196
+          TOTAL_COMMITS=$(git rev-list --count HEAD)
+          VERSION_NUM=$((TOTAL_COMMITS - BASE_COMMIT))
+          if [ $VERSION_NUM -lt 1 ]; then
+            VERSION_NUM=1
+          fi
+          MAJOR=$((VERSION_NUM / 100))
+          MINOR=$((VERSION_NUM % 100))
+          FORMATTED_VERSION=$(printf "V %d.%02d" $MAJOR $MINOR)
+          mkdir -p _data
+          printf "version: \"%s\"\ncommit_count: %d\n" "$FORMATTED_VERSION" "$TOTAL_COMMITS" > _data/version.yml
+          echo "Calculated Version: $FORMATTED_VERSION (Total Commits: $TOTAL_COMMITS)"
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
         uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4

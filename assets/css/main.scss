@@ -1538,6 +1538,31 @@ header p {
   opacity: 0.9;
   line-height: 1.5;
 }
+ 
+/* =======================================
+   Animated Timeline & Glassmorphism 
+   ======================================= */
+
+.animated-timeline .timeline-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpIn 0.8s ease forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes fadeUpIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-content li {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
 
 .animated-timeline .timeline-item::before {
   transition: all 0.4s ease;
@@ -1554,4 +1579,19 @@ header p {
 .timeline-content ul {
   padding-left: 1.2rem;
   margin-top: 0.8rem;
+}
+
+.footer-version {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.75rem;
+  font-family: var(--font-code);
+  font-weight: 600;
+  border-radius: 4px;
+  background-color: var(--border-color);
+  color: var(--text-color);
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
 }
