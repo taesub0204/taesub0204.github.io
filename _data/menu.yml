@@ -3,6 +3,7 @@
 
 entries:
   - title: info
+    open: true
     entries:
       #- title: Learning log(배움의 기록)
       - title: "반도체 장비 소프트웨어학과(하이테크과정 : 데이터 분석)"
@@ -24,7 +25,19 @@ entries:
       # url: https://github.com/riggraz/no-style-please
       #- title: "used by <a href='https://riggraz.dev'>riggraz.dev</a> and <a href='https://github.com/riggraz/no-style-please/network/dependents'>many others</a>"
 
-  - title: all posts
+  - title: 🤖 인공지능 (AI)
+    entries:
+      - title: 📚 인공지능 프로그래밍 기초
+        post_list:
+          category: 인공지능프로그래밍기초
+      - title: 🧠 머신러닝 및 데이터 분석
+        post_list:
+          category: AI
+      - title: 🏭 반도체 장비 데이터 실무
+        post_list:
+          category: 반도체장비
+
+  - title: 📂 전체 글 보기 (All Posts)
     post_list:
       # limit: 10
       show_more: true
@@ -42,6 +55,7 @@ entries:
   #  url: feed.xml
   
   - title: another list
+    open: true
     entries:
       - title: Reference Links
         entries:
