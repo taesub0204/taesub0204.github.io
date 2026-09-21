@@ -37,6 +37,28 @@ entries:
         post_list:
           category: 반도체장비
 
+  - title: 💻 프로그래밍 (Programming)
+    entries:
+      - title: 🐍 Python
+        open: true
+        post_list:
+          category: Python
+      - title: 🛠️ C언어
+        open: true
+        post_list:
+          category: C언어
+      - title: ⚡ C#
+        open: true
+        post_list:
+          category: "C#"
+
+  - title: 📜 자격증 (License)
+    entries:
+      - title: 📝 IT & 프로그래밍 자격증
+        open: true
+        post_list:
+          category: License
+
   - title: 📂 전체 글 보기 (All Posts)
     post_list:
       # limit: 10

@@ -26,4 +26,8 @@
       <li><a href="{{ include.show_more_url }}">{{ include.show_more_text | default: "Show more..." }}</a></li>
     {%- endif -%}
   </ul>
+{%- else -%}
+  <ul>
+    <li><span style="opacity: 0.6; font-size: 0.9em;">(등록된 글이 없습니다)</span></li>
+  </ul>
 {%- endif -%}
