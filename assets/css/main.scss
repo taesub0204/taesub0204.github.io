@@ -784,16 +784,61 @@ header p {
 }
 
 /* ========================================= */
-/* 10. 우측 하단 고정 플로팅 버튼 패널 (FAB) */
+/* 10. 플로팅 버튼 패널 (FAB - 자유 드래그 지원) */
 /* ========================================= */
 .fab-panel {
-  position: fixed !important;
-  bottom: 60px !important;
-  right: 260px !important;
+  position: fixed;
+  bottom: 60px;
+  right: 260px;
   display: flex !important;
   flex-direction: column !important;
-  gap: 10px !important;
-  z-index: 200 !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 2000 !important;
+  touch-action: none !important; /* 모바일 드래그 시 스크롤 방지 */
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* 드래그 전용 상단 손잡이 (Grip Handle) */
+.fab-drag-handle {
+  width: 32px !important;
+  height: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--box-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 10px !important;
+  cursor: grab !important;
+  color: var(--text-color) !important;
+  opacity: 0.55 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 6px var(--shadow) !important;
+  margin-bottom: 2px !important;
+}
+
+.fab-drag-handle:hover {
+  opacity: 1 !important;
+  background: var(--border-color) !important;
+  cursor: grab !important;
+  transform: scale(1.08) !important;
+}
+
+.fab-drag-handle:active,
+.fab-panel.is-dragging .fab-drag-handle {
+  cursor: grabbing !important;
+}
+
+.fab-panel.is-dragging {
+  opacity: 0.88 !important;
+  cursor: grabbing !important;
+  transition: none !important;
+}
+
+.fab-panel.is-dragging .fab-btn {
+  pointer-events: none !important; /* 드래그 중 버튼 캡처 방지 */
+  transform: none !important;
 }
 
 .fab-btn {
@@ -837,15 +882,15 @@ header p {
   stroke: var(--box-bg) !important;
 }
 
-/* 좁은 화면: TOC 없으므로 우측 여백에 배치 */
+/* 좁은 화면: 기본 우측 여백 배치 */
 @media (max-width: 1200px) {
   .fab-panel {
-    right: 24px !important;
-    bottom: 60px !important;
+    right: 24px;
+    bottom: 60px;
   }
 }
 
-/* 모바일: 버튼 크기 축소 */
+/* 모바일: 버튼 및 핸들 크기 축소 */
 @media (max-width: 768px) {
   .fab-btn {
     width: 40px !important;
@@ -854,6 +899,10 @@ header p {
   .fab-btn svg {
     width: 18px !important;
     height: 18px !important;
+  }
+  .fab-drag-handle {
+    width: 28px !important;
+    height: 12px !important;
   }
 }
 
@@ -1659,22 +1708,20 @@ header p {
   line-height: 1.5;
 }
 
-/* Video Player Specific Layout */
-.video-showcase-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-  margin: 2rem 0;
+/* ========================================= */
+/* Video Player Specific Layout (최적 밸런스) */
+/* ========================================= */
+.video-showcase-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  margin: 1.8rem auto;
+  max-width: 720px;
+  width: 100%;
 }
 
-@media (min-width: 820px) {
-  .video-showcase-grid {
-    grid-template-columns: 3fr 2fr;
-    align-items: start;
-  }
-}
-
-.video-box-card {
+/* 16:9 가로 동영상 카드 */
+.video-card-landscape {
   background: var(--box-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -1685,7 +1732,7 @@ header p {
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.video-box-card:hover {
+.video-card-landscape:hover, .video-card-shorts:hover {
   border-color: var(--link-color);
 }
 
@@ -1699,13 +1746,6 @@ header p {
   padding-top: 56.25%; /* 16:9 Aspect Ratio */
 }
 
-.video-iframe-wrap.ratio-shorts {
-  width: 100%;
-  max-width: 340px;
-  margin: 0 auto;
-  padding-top: 177.78%; /* 9:16 Aspect Ratio */
-}
-
 .video-iframe-wrap iframe {
   position: absolute;
   top: 0;
@@ -1715,22 +1755,79 @@ header p {
   border: 0;
 }
 
+/* 9:16 세로 쇼츠 카드: 좌측 컴팩트 플레이어(너비 230px) + 우측 정보 수평 레이아웃 */
+.video-card-shorts {
+  background: var(--box-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px var(--shadow);
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.video-shorts-player-box {
+  width: 230px;
+  min-width: 230px;
+  flex-shrink: 0;
+  background: #000;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-shorts-player-box .video-iframe-wrap.ratio-shorts {
+  width: 100%;
+  padding-top: 177.78%; /* 9:16 Aspect Ratio (~408px 높이로 적정 제어) */
+}
+
 .video-details {
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 .video-details h3 {
   margin-top: 0;
   margin-bottom: 0.6rem;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--text-color);
 }
 
 .video-details p {
-  margin: 0 0 1rem 0;
-  font-size: 0.95rem;
+  margin: 0 0 0.8rem 0;
+  font-size: 0.93rem;
   opacity: 0.88;
-  line-height: 1.55;
+  line-height: 1.6;
+}
+
+.video-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+  width: fit-content;
+}
+
+.video-badge.blue {
+  background: rgba(0, 120, 215, 0.12);
+  color: #0078d7;
+  border: 1px solid rgba(0, 120, 215, 0.3);
+}
+
+.video-badge.red {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .video-link-btn {
@@ -1745,9 +1842,37 @@ header p {
   font-weight: 600;
   text-decoration: none !important;
   transition: background-color 0.2s ease, transform 0.15s ease;
+  align-self: flex-start;
+  margin-top: 0.4rem;
 }
 
 .video-link-btn:hover {
   background-color: #cc0000;
   transform: translateY(-1px);
+}
+
+/* 모바일 화면 대응: 680px 이하에서는 세로 적층 및 중앙 배치 */
+@media (max-width: 680px) {
+  .video-card-shorts {
+    flex-direction: column;
+    align-items: center;
+  }
+  .video-shorts-player-box {
+    width: 240px;
+    min-width: 240px;
+    margin-top: 1.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .video-details {
+    padding: 1.2rem;
+    align-items: center;
+    text-align: center;
+  }
+  .video-link-btn {
+    align-self: center;
+  }
+  .video-details ul {
+    text-align: left;
+  }
 }

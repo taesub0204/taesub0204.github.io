@@ -84,8 +84,19 @@
       </main>
     </div>
 
-    <!-- 우측 하단 고정 플로팅 버튼 패널 -->
-    <div class="fab-panel" id="fab-panel">
+    <!-- 우측 하단 고정 플로팅 버튼 패널 (드래그 이동 가능) -->
+    <div class="fab-panel" id="fab-panel" title="원하는 위치로 드래그하여 이동할 수 있습니다">
+      <!-- 드래그 전용 손잡이 (Grip Handle) -->
+      <div class="fab-drag-handle" id="fab-drag-handle" title="드래그하여 이동">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="currentColor">
+          <circle cx="2" cy="1.5" r="1"/>
+          <circle cx="6" cy="1.5" r="1"/>
+          <circle cx="10" cy="1.5" r="1"/>
+          <circle cx="2" cy="4.5" r="1"/>
+          <circle cx="6" cy="4.5" r="1"/>
+          <circle cx="10" cy="4.5" r="1"/>
+        </svg>
+      </div>
       <!-- 홈 버튼 -->
       <a href="{{ '/' | relative_url }}" class="fab-btn fab-home" title="홈으로">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -256,6 +267,140 @@
   if (diceContainer) {
     diceContainer.addEventListener('click', rollDice);
   }
+
+  // ==========================================
+  // 플로팅 버튼 패널(FAB) 자유 드래그 이동 및 위치 저장
+  // ==========================================
+  function initFabDraggable() {
+    const fab = document.getElementById('fab-panel');
+    if (!fab) return;
+
+    let isDragging = false;
+    let hasMoved = false;
+    let startX = 0;
+    let startY = 0;
+    let origX = 0;
+    let origY = 0;
+    const dragThreshold = 5; // 5px 이상 이동 시 드래그로 판정
+
+    // 1. localStorage에서 저장된 위치 복원
+    try {
+      const saved = localStorage.getItem('fab_pos');
+      if (saved) {
+        const pos = JSON.parse(saved);
+        const panelW = fab.offsetWidth || 44;
+        const panelH = fab.offsetHeight || 160;
+        const clampX = Math.max(10, Math.min(window.innerWidth - panelW - 10, pos.x));
+        const clampY = Math.max(10, Math.min(window.innerHeight - panelH - 10, pos.y));
+
+        fab.style.setProperty('left', clampX + 'px', 'important');
+        fab.style.setProperty('top', clampY + 'px', 'important');
+        fab.style.setProperty('right', 'auto', 'important');
+        fab.style.setProperty('bottom', 'auto', 'important');
+      }
+    } catch (e) {}
+
+    // 2. Pointer Events (마우스 및 터치 완벽 지원)
+    function onPointerDown(e) {
+      if (e.button !== undefined && e.button !== 0) return; // 마우스 좌클릭 또는 터치만
+
+      isDragging = true;
+      hasMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      const rect = fab.getBoundingClientRect();
+      origX = rect.left;
+      origY = rect.top;
+
+      try {
+        fab.setPointerCapture(e.pointerId);
+      } catch (err) {}
+
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
+      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerUp);
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (!hasMoved && Math.hypot(dx, dy) > dragThreshold) {
+        hasMoved = true;
+        fab.classList.add('is-dragging');
+      }
+
+      if (hasMoved) {
+        e.preventDefault(); // 드래그 중 화면 스크롤 방지
+        const panelW = fab.offsetWidth;
+        const panelH = fab.offsetHeight;
+        let newX = origX + dx;
+        let newY = origY + dy;
+
+        // 뷰포트 화면 밖으로 이탈 방지 (최소 10px 여백 유지)
+        newX = Math.max(10, Math.min(window.innerWidth - panelW - 10, newX));
+        newY = Math.max(10, Math.min(window.innerHeight - panelH - 10, newY));
+
+        fab.style.setProperty('left', newX + 'px', 'important');
+        fab.style.setProperty('top', newY + 'px', 'important');
+        fab.style.setProperty('right', 'auto', 'important');
+        fab.style.setProperty('bottom', 'auto', 'important');
+      }
+    }
+
+    function onPointerUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerUp);
+
+      try {
+        fab.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+
+      if (hasMoved) {
+        fab.classList.remove('is-dragging');
+        const rect = fab.getBoundingClientRect();
+        try {
+          localStorage.setItem('fab_pos', JSON.stringify({ x: rect.left, y: rect.top }));
+        } catch (err) {}
+
+        // 드래그 종료 시 발생하는 불필요한 클릭 이벤트 무효화
+        const captureClick = (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          fab.removeEventListener('click', captureClick, true);
+        };
+        fab.addEventListener('click', captureClick, true);
+      }
+    }
+
+    fab.addEventListener('pointerdown', onPointerDown);
+
+    // 윈도우 창 크기 변경 시 위치 재조정
+    window.addEventListener('resize', () => {
+      const rect = fab.getBoundingClientRect();
+      const panelW = fab.offsetWidth;
+      const panelH = fab.offsetHeight;
+      if (rect.right > window.innerWidth || rect.bottom > window.innerHeight) {
+        const newX = Math.max(10, Math.min(window.innerWidth - panelW - 10, rect.left));
+        const newY = Math.max(10, Math.min(window.innerHeight - panelH - 10, rect.top));
+        fab.style.setProperty('left', newX + 'px', 'important');
+        fab.style.setProperty('top', newY + 'px', 'important');
+        fab.style.setProperty('right', 'auto', 'important');
+        fab.style.setProperty('bottom', 'auto', 'important');
+        try {
+          localStorage.setItem('fab_pos', JSON.stringify({ x: newX, y: newY }));
+        } catch (err) {}
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initFabDraggable);
 </script>
   </body>
 </html>
