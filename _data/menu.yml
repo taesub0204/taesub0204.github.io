@@ -3,7 +3,6 @@
 
 entries:
   - title: info
-    open: true
     entries:
       #- title: Learning log(배움의 기록)
       - title: "반도체 장비 소프트웨어학과(하이테크과정 : 데이터 분석)"
@@ -40,24 +39,29 @@ entries:
   - title: 💻 프로그래밍 (Programming)
     entries:
       - title: 🐍 Python
-        open: true
         post_list:
           category: Python
       - title: 🛠️ C언어
-        open: true
         post_list:
           category: C언어
       - title: ⚡ C#
-        open: true
         post_list:
           category: "C#"
 
   - title: 📜 자격증 (License)
     entries:
       - title: 📝 IT & 프로그래밍 자격증
-        open: true
         post_list:
           category: License
+
+  - title: ⚙️ 반도체 장비개론 & 공압제어
+    entries:
+      - title: 🔬 반도체 장비개론 & 공정 기술 (8대공정·EUV·소자)
+        post_list:
+          category: 반도체 장비개론
+      - title: 💨 공압 제어 시스템 & 시퀀스 자동화 (FRL·밸브·캐스케이드)
+        post_list:
+          category: 공압 제어 및 시퀀스
 
   - title: 📂 전체 글 보기 (All Posts)
     post_list:
@@ -77,7 +81,6 @@ entries:
   #  url: feed.xml
   
   - title: another list
-    open: true
     entries:
       - title: Reference Links
         entries:
