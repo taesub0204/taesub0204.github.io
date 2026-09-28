@@ -84,6 +84,11 @@ body[a="dark"] {
   box-sizing: border-box !important;
 }
 
+html {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable !important;
+}
+
 html, body {
   background: var(--bg) !important;
   color: var(--text-color) !important;
@@ -156,7 +161,7 @@ p, li, a, h1, h2, h3, h4, h5, h6, blockquote {
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
-  transition: all 0.3s ease !important;
+  transition: color 0.3s ease !important;
   
   /* 전역 여백 제거 및 화면 밀착 */
   max-width: 100% !important; 

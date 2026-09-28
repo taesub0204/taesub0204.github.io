@@ -401,6 +401,46 @@
   }
 
   document.addEventListener('DOMContentLoaded', initFabDraggable);
+
+  // ==========================================
+  // Home 또는 TS 선택 시 Learning Log 메뉴 펼침 상태 리셋
+  // ==========================================
+  function resetLearningLogMenuState() {
+    try {
+      sessionStorage.removeItem('homeMenuOpenKeys');
+      sessionStorage.removeItem('lastVisitedPost');
+    } catch (e) {}
+
+    const homeMenu = document.querySelector('.home-menu');
+    if (homeMenu) {
+      homeMenu.querySelectorAll('details').forEach(d => {
+        d.open = false;
+      });
+      homeMenu.querySelectorAll('li.last-visited-highlight').forEach(el => {
+        el.classList.remove('last-visited-highlight');
+      });
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const isLogo = a.closest('.sidebar-logo');
+    const isFabHome = a.closest('.fab-home');
+    const href = a.getAttribute('href');
+    const text = a.textContent.trim().toLowerCase();
+    const isHome = href === '/' || href === '{{ "/" | relative_url }}' || text === 'home' || text === 'ts';
+
+    if (isLogo || isFabHome || isHome) {
+      resetLearningLogMenuState();
+    }
+  });
+
+  // Home 페이지 직접 접속 시에도 메뉴 상태 자동 리셋
+  const currentPath = window.location.pathname;
+  if (currentPath === '/' || currentPath.endsWith('/index.html') || currentPath.endsWith('/taesub0204.github.io/')) {
+    resetLearningLogMenuState();
+  }
 </script>
   </body>
 </html>

@@ -17,3 +17,162 @@ layout: default
 
   {{ content }}
 </div>
+
+<style>
+  .home-menu li.last-visited-highlight {
+    background-color: rgba(125, 125, 125, 0.16);
+    border-radius: 4px;
+    padding: 2px 6px;
+    box-shadow: inset 0 0 0 1px rgba(125, 125, 125, 0.22);
+    display: list-item;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  body[a="dark"] .home-menu li.last-visited-highlight {
+    background-color: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  }
+</style>
+
+<script>
+(function() {
+  function getDetailsKey(d) {
+    const parts = [];
+    let cur = d;
+    while (cur && cur.tagName && cur.tagName.toLowerCase() === 'details') {
+      const summary = cur.querySelector(':scope > summary');
+      if (summary) {
+        parts.unshift(summary.textContent.trim());
+      }
+      cur = cur.parentElement ? cur.parentElement.closest('details') : null;
+    }
+    return parts.join(' > ');
+  }
+
+  function saveOpenDetailsState() {
+    const openKeys = [];
+    document.querySelectorAll('.home-menu details').forEach(d => {
+      if (d.open) {
+        const key = getDetailsKey(d);
+        if (key) openKeys.push(key);
+      }
+    });
+    try {
+      sessionStorage.setItem('homeMenuOpenKeys', JSON.stringify(openKeys));
+    } catch (e) {}
+  }
+
+  function cleanPath(p) {
+    if (!p) return '';
+    try {
+      p = decodeURIComponent(p);
+    } catch (e) {}
+    p = p.split('?')[0].split('#')[0];
+    return p.replace(/^\/+/, '').replace(/\/+$/, '').toLowerCase();
+  }
+
+  function restoreMenuState() {
+    // 1. 사용자가 펼쳐두었던 아코디언 메뉴 상태 복원
+    let savedOpenKeys = null;
+    try {
+      const raw = sessionStorage.getItem('homeMenuOpenKeys');
+      if (raw) savedOpenKeys = JSON.parse(raw);
+    } catch (e) {}
+
+    if (Array.isArray(savedOpenKeys) && savedOpenKeys.length > 0) {
+      document.querySelectorAll('.home-menu details').forEach(d => {
+        const key = getDetailsKey(d);
+        if (savedOpenKeys.includes(key)) {
+          d.open = true;
+        } else {
+          d.open = false;
+        }
+      });
+    }
+
+    // 2. 직전에 열람했던 글 위치 감지 및 상위 메뉴 전개 & 하이라이트
+    let lastPost = null;
+    try {
+      lastPost = sessionStorage.getItem('lastVisitedPost');
+    } catch (e) {}
+
+    if (lastPost) {
+      const targetClean = cleanPath(lastPost);
+      if (targetClean) {
+        const targetFile = targetClean.split('/').pop();
+        const links = document.querySelectorAll('.home-menu a');
+        let matchedLink = null;
+
+        for (const link of links) {
+          const href = link.getAttribute('href');
+          if (!href) continue;
+          const hrefClean = cleanPath(href);
+          const hrefFile = hrefClean.split('/').pop();
+
+          if (hrefClean === targetClean || 
+              (targetFile && hrefFile === targetFile) ||
+              targetClean.endsWith(hrefClean) || 
+              hrefClean.endsWith(targetClean)) {
+            matchedLink = link;
+            break;
+          }
+        }
+
+        if (matchedLink) {
+          // 해당 글의 상위 details 펼침
+          let parentDetails = matchedLink.closest('details');
+          while (parentDetails) {
+            parentDetails.open = true;
+            parentDetails = parentDetails.parentElement ? parentDetails.parentElement.closest('details') : null;
+          }
+
+          // 이전 하이라이트 제거 후 현재 항목 하이라이트
+          document.querySelectorAll('.home-menu li.last-visited-highlight').forEach(el => {
+            el.classList.remove('last-visited-highlight');
+          });
+
+          const targetLi = matchedLink.closest('li');
+          if (targetLi) {
+            targetLi.classList.add('last-visited-highlight');
+            setTimeout(() => {
+              targetLi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 150);
+          }
+
+          saveOpenDetailsState();
+        }
+      }
+    }
+  }
+
+  function initMenuListeners() {
+    // 모든 아코디언 열림/닫힘 상태 실시간 저장
+    document.querySelectorAll('.home-menu details').forEach(d => {
+      d.addEventListener('toggle', function() {
+        saveOpenDetailsState();
+      });
+    });
+
+    // 글 링크 클릭 시 해당 글 경로 및 메뉴 상태 저장
+    document.querySelectorAll('.home-menu a').forEach(a => {
+      a.addEventListener('click', function() {
+        const href = this.getAttribute('href');
+        if (href && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('#')) {
+          try {
+            sessionStorage.setItem('lastVisitedPost', href);
+          } catch (e) {}
+          saveOpenDetailsState();
+        }
+      });
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    initMenuListeners();
+    restoreMenuState();
+  });
+
+  window.addEventListener('pageshow', function() {
+    restoreMenuState();
+  });
+})();
+</script>

@@ -53,6 +53,9 @@ entries:
       - title: 📝 IT & 프로그래밍 자격증
         post_list:
           category: License
+      - title: 🗄️ SQLD (SQL기초)
+        post_list:
+          category: SQLD
 
   - title: ⚙️ 반도체 장비개론 & 공압제어
     entries:
@@ -62,6 +65,12 @@ entries:
       - title: 💨 공압 제어 시스템 & 시퀀스 자동화 (FRL·밸브·캐스케이드)
         post_list:
           category: 공압 제어 및 시퀀스
+
+  - title: 🏭 반도체 제조공정 (Manufacturing)
+    entries:
+      - title: 🔬 반도체 제조공정 마스터 가이드 (01~19강)
+        post_list:
+          category: 반도체제조공정
 
   - title: 📂 전체 글 보기 (All Posts)
     post_list:
