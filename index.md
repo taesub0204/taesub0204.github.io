@@ -26,7 +26,9 @@ Python(Pandas)을 활용해 장비 가동 중 발생하는 센서 데이터와 �
 
 ### **역량 다지기 및 학습 내용**
 
-*   **다루는 도구** : C, C#, Python, Pandas, Github, HTML5, CSS, SQL, Jira
+*   **개발 & 데이터** : C, C#, Python, Pandas, SQL, HTML5, CSS
+*   **형상관리 & 협업** : GitHub, Jira
+*   **AI 협업 (바이브 코딩)** : Claude, ChatGPT, Gemini, Anti-Gravity, Codex
 *   **수료**: 폴리텍 하이테크 과정 수료예정
 *   **기타 역량**: 사무자동화산업기사, 네트워크관리사2급, ISTQB, 워드1급, 컴퓨터활용능력2급, 1종보통운전면허, 소방안전관리자 2급
 
