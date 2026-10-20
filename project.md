@@ -70,4 +70,33 @@ title: Project
     </div>
   </a>
 
+  <!-- 프로젝트 6: 에어터치 (AirTouch) - 공간 제스처 컨트롤러 -->
+  <div class="project-card" style="display: flex; flex-direction: column;">
+    <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; border-bottom: 1px solid var(--border-color);">
+      <iframe 
+        src="https://www.youtube.com/embed/iKYv35nSBq4" 
+        title="에어터치 / AirTouch - 프로젝트 실습" 
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="project-info" style="display: flex; flex-direction: column; flex: 1;">
+      <div style="display: flex; gap: 0.4rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+        <span style="background: rgba(239, 68, 68, 0.12); color: #ef4444; font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;">🎬 프로젝트 실습</span>
+        <span style="background: rgba(245, 158, 11, 0.12); color: #d97706; font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;">🚧 APP 개발중</span>
+        <span style="background: rgba(0, 120, 215, 0.12); color: #0078d7; font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;">Android</span>
+        <span style="background: rgba(16, 185, 129, 0.12); color: #059669; font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;">MediaPipe AI</span>
+      </div>
+      <h3 style="margin: 0 0 0.5rem 0;">에어터치 (AirTouch) - 공간 제스처 컨트롤러</h3>
+      <p style="margin-bottom: 0.8rem;">스마트폰 전면 카메라와 AI 핸드 트래킹을 결합해 비접촉 공간 제스처로 디바이스를 원격 제어하는 에어마우스 앱입니다.</p>
+      <div style="margin-top: auto; padding-top: 0.6rem; border-top: 1px dashed var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;">
+        <span style="font-size: 0.82rem; color: #888; font-weight: 500;">💡 현재 APP 개발 및 고도화 진행 중</span>
+        <a href="/project-airtouch" style="font-size: 0.85rem; font-weight: 600; color: var(--link-color); text-decoration: none; display: inline-flex; align-items: center; gap: 0.2rem;">
+          프로젝트 상세 보기 &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>
