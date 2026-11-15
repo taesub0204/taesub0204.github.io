@@ -35,6 +35,9 @@ entries:
       - title: 🏭 반도체 장비 데이터 실무
         post_list:
           category: 반도체장비
+      - title: 👁️ 반도체 장비 AI 비전 실무
+        post_list:
+          category: 반도체장비AI비전실무
 
   - title: 💻 프로그래밍 (Programming)
     entries:
