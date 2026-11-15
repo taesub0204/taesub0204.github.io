@@ -442,6 +442,100 @@
   if (currentPath === '/' || currentPath.endsWith('/index.html') || currentPath.endsWith('/taesub0204.github.io/')) {
     resetLearningLogMenuState();
   }
+
+  // ==========================================
+  // 코드 블록 복사 (Code Copy Button) 기능
+  // ==========================================
+  function initCodeCopyButtons() {
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          return Promise.resolve();
+        } catch (err) {
+          document.body.removeChild(textarea);
+          return Promise.reject(err);
+        }
+      }
+    }
+
+    document.querySelectorAll('div.highlighter-rouge').forEach(function(wrapper) {
+      if (wrapper.querySelector('.code-header') || wrapper.querySelector('.code-copy-btn')) return;
+
+      // 언어 라벨 추출
+      let lang = 'CODE';
+      wrapper.classList.forEach(function(cls) {
+        if (cls.startsWith('language-')) {
+          const l = cls.replace('language-', '').toLowerCase();
+          if (l === 'python' || l === 'py') lang = 'Python';
+          else if (l === 'c') lang = 'C';
+          else if (l === 'csharp' || l === 'cs') lang = 'C#';
+          else if (l === 'sql') lang = 'SQL';
+          else if (l === 'html') lang = 'HTML';
+          else if (l === 'css' || l === 'scss') lang = 'CSS';
+          else if (l === 'javascript' || l === 'js') lang = 'JavaScript';
+          else if (l === 'bash' || l === 'sh' || l === 'shell') lang = 'Bash';
+          else if (l === 'json') lang = 'JSON';
+          else if (l === 'yaml' || l === 'yml') lang = 'YAML';
+          else if (l === 'text' || l === 'plaintext') lang = 'Text';
+          else lang = l.toUpperCase();
+        }
+      });
+
+      const header = document.createElement('div');
+      header.className = 'code-header';
+
+      const badge = document.createElement('span');
+      badge.className = 'code-lang-badge';
+      badge.textContent = lang;
+
+      const btn = document.createElement('button');
+      btn.className = 'code-copy-btn';
+      btn.type = 'button';
+      btn.innerHTML = '📋 코드 복사';
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const codeEl = wrapper.querySelector('pre code') || wrapper.querySelector('pre');
+        if (!codeEl) return;
+
+        const codeText = codeEl.innerText;
+        copyText(codeText).then(function() {
+          btn.innerHTML = '✅ 복사 완료!';
+          btn.classList.add('copied');
+          if (btn._copyTimer) clearTimeout(btn._copyTimer);
+          btn._copyTimer = setTimeout(function() {
+            btn.innerHTML = '📋 코드 복사';
+            btn.classList.remove('copied');
+            btn._copyTimer = null;
+          }, 1500);
+        }).catch(function(err) {
+          console.error('복사 실패:', err);
+          btn.innerHTML = '❌ 복사 실패';
+          if (btn._copyTimer) clearTimeout(btn._copyTimer);
+          btn._copyTimer = setTimeout(function() {
+            btn.innerHTML = '📋 코드 복사';
+            btn._copyTimer = null;
+          }, 1500);
+        });
+      });
+
+      header.appendChild(badge);
+      header.appendChild(btn);
+      wrapper.insertBefore(header, wrapper.firstChild);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initCodeCopyButtons);
 </script>
   </body>
 </html>

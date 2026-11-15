@@ -1562,12 +1562,139 @@ header p {
    ======================================= */
 @media (min-width: 769px) {
   .inner-compact-content {
-    max-width: 850px !important;
+    max-width: 1100px !important;
     margin: 0 auto !important;
   }
 }
 
- 
+/* =======================================
+   Post List Single-Line (글 목록 줄내림 방지 & 한 줄 출력)
+   ======================================= */
+.post-list,
+.home-menu details ul {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.post-list-item,
+.post-item,
+.home-menu details ul li,
+.post-list li {
+  white-space: nowrap !important;
+  margin: 0.4rem 0 !important;
+}
+
+.post-date,
+.post-item .post-date,
+.home-menu details ul li span,
+.post-list li span {
+  display: inline-block !important;
+  margin-right: 0.6rem !important;
+  font-family: var(--font-code, monospace) !important;
+  opacity: 0.85 !important;
+  white-space: nowrap !important;
+}
+
+.post-title,
+.post-item .post-title,
+.home-menu details ul li a,
+.post-list li a {
+  white-space: nowrap !important;
+  display: inline !important;
+}
+
+/* =======================================
+   Code Block Header & Copy Button Styles
+   ======================================= */
+div.highlighter-rouge {
+  position: relative !important;
+  margin: 1.6rem 0 !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  background: var(--code-block-bg) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+}
+
+div.highlighter-rouge pre,
+div.highlighter-rouge .highlight pre {
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: var(--code-block-bg) !important;
+  padding: 1.1rem 1.25rem !important;
+  box-shadow: none !important;
+}
+
+.code-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0.5rem 1rem !important;
+  background: #f6f8fa !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  user-select: none !important;
+}
+
+.code-lang-badge {
+  font-family: var(--font-code, monospace) !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+  opacity: 0.8 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.code-copy-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  background: #113f67 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 5px 12px !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  font-family: var(--font-main, sans-serif) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.4 !important;
+}
+
+.code-copy-btn:hover {
+  background: #226b80 !important;
+  transform: translateY(-1px) !important;
+}
+
+.code-copy-btn.copied {
+  background: #2e7d32 !important;
+  color: #ffffff !important;
+}
+
+/* 다크 모드 스타일 */
+body[a="dark"] .code-header {
+  background: #181818 !important;
+  border-bottom: 1px solid #333333 !important;
+}
+
+body[a="dark"] .code-copy-btn {
+  background: #1e3a5f !important;
+  color: #e0e0e0 !important;
+}
+
+body[a="dark"] .code-copy-btn:hover {
+  background: #2d5a88 !important;
+  color: #ffffff !important;
+}
+
+body[a="dark"] .code-copy-btn.copied {
+  background: #1b5e20 !important;
+  color: #ffffff !important;
+}
+
+
 /* =======================================
    Animated Timeline & Glassmorphism 
    ======================================= */
